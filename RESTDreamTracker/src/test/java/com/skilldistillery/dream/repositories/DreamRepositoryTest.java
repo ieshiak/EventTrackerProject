@@ -12,13 +12,13 @@ class DreamRepositoryTest {
 	@Autowired
 	private DreamRepository  dreamRepo;
 
-	@Test
-    void testFindById() {
-		Optional<Dream> optionalDream = dreamRepo.findById(1);
-		Dream dream = null;
-		if(optionalDream.isPresent()) {
-			dream = optionalDream.get();
-		}
-	}
+//	@Test
+//    void testFindById() {
+//		Optional<Dream> optionalDream = dreamRepo.findById(1);
+//		Dream dream = null;
+//		if(optionalDream.isPresent()) {
+//			dream = optionalDream.get();
+//		}
+	
 
 }

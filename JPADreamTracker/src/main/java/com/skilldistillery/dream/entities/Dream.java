@@ -1,6 +1,7 @@
 package com.skilldistillery.dream.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,34 +12,34 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Dream {
-	
+
 	public Dream() {
-		
+
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String title;
-	
+
 	private LocalDateTime date;
-	
+
 	private LocalDateTime time;
-	
+
 	private String description;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Type type;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Emotion emotion;
-	
-	//@ManyToOne
-	//@JoinColumn(name="user_id")
-	//private User user;
 
-	public int getId() {
+	// @ManyToOne
+	// @JoinColumn(name="user_id")
+	// private User user;
+
+	public Integer getId() {
 		return id;
 	}
 
@@ -101,12 +102,29 @@ public class Dream {
 //	public void setUser(User user) {
 //		this.user = user;
 //	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(date, description, emotion, id, time, title, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dream other = (Dream) obj;
+		return Objects.equals(date, other.date) && Objects.equals(description, other.description)
+				&& emotion == other.emotion && id == other.id && Objects.equals(time, other.time)
+				&& Objects.equals(title, other.title) && type == other.type;
+	}
+
 	@Override
 	public String toString() {
 		return "Dream [id=" + id + ", title=" + title + ", date=" + date + ", time=" + time + ", description="
 				+ description + ", type=" + type + ", emotion=" + emotion + "]";
 	}
-	
-	
 }

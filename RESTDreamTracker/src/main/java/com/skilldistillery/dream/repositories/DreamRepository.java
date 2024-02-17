@@ -8,4 +8,5 @@ import com.skilldistillery.dream.entities.Dream;
 @Repository
 public interface DreamRepository extends JpaRepository<Dream, Integer> {
 	
+	Dream findById(int id);
 }
