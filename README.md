@@ -8,10 +8,7 @@ The Dream Journal Application is deployed and accessible online. You can access 
 
 The Dream Journal Application is a web-based platform designed to help users record, manage, and reflect on their dreams. It provides users with a convenient way to document their dreams, explore patterns, and gain insights into their subconscious mind.
 
-## Description
-
-The Dream Journal Application allows users to create, read, update, and delete dream entries through a user-friendly interface. Users can log in to their accounts, add new dream entries, view their existing dreams, update dream details, and delete dreams as needed.
-
+Users can log in to their accounts, add new dream entries, view their existing dreams, update dream details, and delete dreams as needed. The application offers a user-friendly interface that simplifies the process of recording and managing dream entries. Through the Dream Journal Application, users can track their dream experiences, analyze trends, and reflect on their subconscious thoughts and emotions.
 ## Login Credentials
 
 To log in to the application, please use the following credentials: <br>
