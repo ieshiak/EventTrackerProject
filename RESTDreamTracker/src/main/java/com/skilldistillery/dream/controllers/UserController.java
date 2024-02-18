@@ -44,7 +44,7 @@ public class UserController {
 	public User create(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
 		User newUser = userService.create(user);
 		if (newUser == null) {
-			response.setStatus(409);
+			response.setStatus(400);
 			return null;
 		} else {
 			response.setStatus(201);
@@ -76,27 +76,28 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("users/search/zodiacSign/{zodiacSign}")
-	public List<User> findUsersByZodiacSign(@PathVariable("zodiacSign") String zodiacSignString) {
+	@GetMapping("users/search/zodiacsign/{zodiacSign}")
+	public List<User> findUsersByZodiacSign(@PathVariable("zodiacSign") String zodiacSignString, HttpServletRequest request, HttpServletResponse response) {
 		ZodiacSign zodiacSign = ZodiacSign.fromString(zodiacSignString);
 		if (zodiacSign == null) {
+			response.setStatus(404);
 			throw new IllegalArgumentException("Invalid user zodiacSign: " + zodiacSignString);
 		}
 		return userService.findByZodiacSign(zodiacSign);
 	}
 
 	@GetMapping("users/search/role/{role}")
-	public List<User> findUsersByRole(@PathVariable("role") String roleString) {
+	public List<User> findUsersByRole(@PathVariable("role") String roleString, HttpServletRequest request, HttpServletResponse response) {
 		Role role = Role.fromString(roleString);
 		if (role == null) {
+			response.setStatus(404);
 			throw new IllegalArgumentException("Invalid user role: " + roleString);
 		}
 		return userService.findUsersByRole(role);
 	}
 
 	@GetMapping("users/search/{username}")
-	public List<User> findByUsersUsername(@PathVariable("username") String username, HttpServletRequest request,
-			HttpServletResponse response) {
+	public List<User> findByUsersUsername(@PathVariable("username") String username, HttpServletRequest request, HttpServletResponse response) {
 		List<User> users = userService.findUsersByUsername(username);
 		if (users == null) {
 			response.setStatus(404);
