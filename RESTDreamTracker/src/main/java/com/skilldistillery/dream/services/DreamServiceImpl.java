@@ -25,19 +25,30 @@ public class DreamServiceImpl implements DreamService {
 
 	@Override
 	public Dream create(Dream newDream) {
-        return dreamRepo.save(newDream);
-    }
-
-	@Override
-	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		return dreamRepo.save(newDream);
 	}
 
 	@Override
-	public Dream update(int id, Dream dream) {
-		// TODO Auto-generated method stub
-		return null;
+	public Dream update(int id, Dream existingDream) {
+		Dream dream = findById(id);
+		dream.setTitle(existingDream.getTitle());
+		dream.setDate(existingDream.getDate());
+		dream.setTime(existingDream.getTime());
+		dream.setDescription(existingDream.getDescription());
+		dream.setEmotion(existingDream.getEmotion());
+		dream.setType(existingDream.getType());
+		return dreamRepo.save(dream);
+	}
+
+	@Override
+	public boolean delete(int id) {
+		Dream dream = dreamRepo.findById(id);
+		if (dream != null) {
+			dreamRepo.delete(dream);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

@@ -3,15 +3,16 @@ package com.skilldistillery.dream.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.dream.entities.Dream;
-import com.skilldistillery.dream.repositories.DreamRepository;
 import com.skilldistillery.dream.services.DreamService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,24 +23,21 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DreamController {
 	@Autowired
 	private DreamService dreamService;
-	
-	@Autowired
-	private DreamRepository  dreamRepo;
 
 	@GetMapping("dreams")
 	public List<Dream> index() {
 		return dreamService.index();
 	}
-	
+
 	@GetMapping("dreams/{id}")
-	public Dream findDreamById(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
+	public Dream findById(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
 		Dream dream = dreamService.findById(id);
 		if (dream == null) {
 			response.setStatus(404);
 		}
 		return dream;
 	}
-	
+
 	@PostMapping("dreams")
 	public Dream create(@RequestBody Dream dream, HttpServletRequest request, HttpServletResponse response) {
 		Dream newDream = dreamService.create(dream);
@@ -53,4 +51,27 @@ public class DreamController {
 		}
 	}
 
+	@PutMapping("dreams/{id}")
+	public Dream update(@PathVariable("id") Integer id, @RequestBody Dream dream, HttpServletResponse res) {
+		dream = dreamService.update(id, dream);
+		if (dream == null) {
+			res.setStatus(404);
+		}
+		return dream;
+	}
+	
+	@DeleteMapping("dreams/{id}")
+	public void delete(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			if (dreamService.delete(id)) {
+				response.setStatus(204);
+			} else {
+				response.setStatus(404);
+			}
+		} catch (Exception e) {
+			response.setStatus(400);
+			e.printStackTrace();
+		}
+	}
+	
 }
