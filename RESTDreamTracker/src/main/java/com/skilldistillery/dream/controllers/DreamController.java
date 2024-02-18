@@ -78,22 +78,34 @@ public class DreamController {
 
 	@GetMapping("dreams/search/emotion/{emotion}")
 	public List<Dream> findDreamsByEmotion(@PathVariable("emotion") String emotionString) {
-	    Emotion emotion = Emotion.fromString(emotionString);
-	    if (emotion == null) {
-            throw new IllegalArgumentException("Invalid dream emotion: " + emotionString);
-        }
-	    return dreamService.findDreamsByEmotion(emotion);
+		Emotion emotion = Emotion.fromString(emotionString);
+		if (emotion == null) {
+			throw new IllegalArgumentException("Invalid dream emotion: " + emotionString);
+		}
+		return dreamService.findDreamsByEmotion(emotion);
 	}
 
 	@GetMapping("dreams/search/type/{type}")
-    public List<Dream> findDreamsByType(@PathVariable("type") String typeString) {
-        Type type = Type.fromString(typeString);
-        if (type == null) {
-            throw new IllegalArgumentException("Invalid dream type: " + typeString);
-        }
-        return dreamService.findDreamsByType(type);
-    }
+	public List<Dream> findDreamsByType(@PathVariable("type") String typeString) {
+		Type type = Type.fromString(typeString);
+		if (type == null) {
+			throw new IllegalArgumentException("Invalid dream type: " + typeString);
+		}
+		return dreamService.findDreamsByType(type);
+	}
 
+	@GetMapping("dreams/search/{title}")
+	public List<Dream> findByDreamsTitle(@PathVariable("title") String title, HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Dream> dreams = dreamService.findDreamsByTitle(title);
+		if (dreams == null) {
+			response.setStatus(404);
+		}
+		return dreams;
+	}
 
-
+	@GetMapping("dreams/count")
+	public long countDreams() {
+		return dreamService.countDreams();
+	}
 }

@@ -54,11 +54,23 @@ public class DreamServiceImpl implements DreamService {
 	}
 
 	@Override
-    public List<Dream> findDreamsByEmotion(Emotion emotion) {
-        return dreamRepo.findByEmotion(emotion);
-    }
+	public List<Dream> findDreamsByEmotion(Emotion emotion) {
+		return dreamRepo.findByEmotion(emotion);
+	}
+
 	@Override
-    public List<Dream> findDreamsByType(Type type) {
-        return dreamRepo.findByType(type);
-    }
+	public List<Dream> findDreamsByType(Type type) {
+		return dreamRepo.findByType(type);
+	}
+
+	@Override
+	public List<Dream> findDreamsByTitle(String title) {
+		return dreamRepo.findByTitleIgnoreCaseContaining(title);
+	}
+
+	@Override
+	public long countDreams() {
+		return dreamRepo.count();
+	}
+
 }
