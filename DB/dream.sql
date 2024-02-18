@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `zodiac_sign` VARCHAR(200) NULL,
   `avatar_URL` VARCHAR(400) NULL,
   `role` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -81,7 +83,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dream`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `birthday`, `zodiac_sign`, `avatar_URL`, `role`) VALUES (1, 'ieshiak', 'esha', 'Ieshia', 'Parker', 'ieshiak@icloud.com', '1986-07-06', 'cancer', 'esha.png', 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `birthday`, `zodiac_sign`, `avatar_URL`, `role`) VALUES (1, 'ieshiak', 'esha', 'Ieshia', 'Parker', 'ieshiak@icloud.com', '1986-07-06', 'CANCER', 'esha.png', 'ADMIN');
 
 COMMIT;
 
@@ -91,7 +93,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dream`;
-INSERT INTO `dream` (`id`, `title`, `date`, `time`, `description`, `type`, `emotion`, `user_id`) VALUES (1, 'Flying Dream', '2024-02-16', '08:00', 'I was flying over a beautiful landscape', 'LucidDream', 'Excitement', 1);
+INSERT INTO `dream` (`id`, `title`, `date`, `time`, `description`, `type`, `emotion`, `user_id`) VALUES (1, 'Flying Dream', '2024-02-16', '08:00', 'I was flying over a beautiful landscape', 'Lucid Dream', 'Excitement', 1);
 INSERT INTO `dream` (`id`, `title`, `date`, `time`, `description`, `type`, `emotion`, `user_id`) VALUES (2, 'Forest Nightmare', '2024-02-15', '03:00', 'I was being chased by a monster through a dark forest', 'Nightmare', 'Fear', 1);
 
 COMMIT;
