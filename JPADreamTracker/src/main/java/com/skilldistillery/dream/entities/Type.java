@@ -34,12 +34,20 @@ public enum Type {
     }
     
     public static Type fromString(String text) {
+        System.out.println("Attempting to convert string: " + text);
         for (Type type : Type.values()) {
-            if (type.label.equalsIgnoreCase(text)) {
+            System.out.println("Checking enum constant: " + type.getLabel());
+            if (type.getLabel().replaceAll("\\s+", "").equalsIgnoreCase(text.trim().replaceAll("\\s+", ""))) {
+                System.out.println("Match found for: " + text);
                 return type;
             }
         }
-        return null;
+        System.out.println("No match found for: " + text);
+        throw new IllegalArgumentException("Invalid dream type: " + text);
     }
+
+
+
+
 }
 

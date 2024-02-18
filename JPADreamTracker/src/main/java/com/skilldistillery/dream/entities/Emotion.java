@@ -17,5 +17,19 @@ public enum Emotion {
     Curious,
     Hate,
     Trust,
-    Excitement
+    Excitement;
+    
+    public static Emotion fromString(String text) {
+        System.out.println("Attempting to convert string: " + text);
+        for (Emotion emotion : Emotion.values()) {
+            System.out.println("Checking enum constant: " + emotion);
+            if (emotion.toString().equalsIgnoreCase(text.trim())) {
+                System.out.println("Match found for: " + text);
+                return emotion;
+            }
+        }
+        System.out.println("No match found for: " + text);
+        throw new IllegalArgumentException("Invalid emotion: " + text);
+    }
 }
+

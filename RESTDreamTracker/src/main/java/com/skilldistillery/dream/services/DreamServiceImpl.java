@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.dream.entities.Dream;
+import com.skilldistillery.dream.entities.Emotion;
+import com.skilldistillery.dream.entities.Type;
 import com.skilldistillery.dream.repositories.DreamRepository;
 
 @Service
@@ -51,4 +53,12 @@ public class DreamServiceImpl implements DreamService {
 		}
 	}
 
+	@Override
+    public List<Dream> findDreamsByEmotion(Emotion emotion) {
+        return dreamRepo.findByEmotion(emotion);
+    }
+	@Override
+    public List<Dream> findDreamsByType(Type type) {
+        return dreamRepo.findByType(type);
+    }
 }

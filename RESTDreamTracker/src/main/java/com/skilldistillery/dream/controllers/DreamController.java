@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.dream.entities.Dream;
+import com.skilldistillery.dream.entities.Emotion;
+import com.skilldistillery.dream.entities.Type;
 import com.skilldistillery.dream.services.DreamService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,7 +61,7 @@ public class DreamController {
 		}
 		return dream;
 	}
-	
+
 	@DeleteMapping("dreams/{id}")
 	public void delete(@PathVariable("id") int id, HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -73,5 +75,25 @@ public class DreamController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@GetMapping("dreams/search/emotion/{emotion}")
+	public List<Dream> findDreamsByEmotion(@PathVariable("emotion") String emotionString) {
+	    Emotion emotion = Emotion.fromString(emotionString);
+	    if (emotion == null) {
+            throw new IllegalArgumentException("Invalid dream emotion: " + emotionString);
+        }
+	    return dreamService.findDreamsByEmotion(emotion);
+	}
+
+	@GetMapping("dreams/search/type/{type}")
+    public List<Dream> findDreamsByType(@PathVariable("type") String typeString) {
+        Type type = Type.fromString(typeString);
+        if (type == null) {
+            throw new IllegalArgumentException("Invalid dream type: " + typeString);
+        }
+        return dreamService.findDreamsByType(type);
+    }
+
+
+
 }
