@@ -1,49 +1,53 @@
 package com.skilldistillery.dream.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
-	
+
 	public User() {
-		
+
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String username;
-	
+
 	private String password;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	private String email;
-	
+
 	private LocalDateTime birthday;
-	
+
+	@Enumerated(EnumType.STRING)
 	@Column(name = "zodiac_sign")
-	private String zodiacSign;
-	
+	private ZodiacSign zodiacSign;
+
 	@Column(name = "avatar_URL")
 	private String avatarURL;
-	
-	private String role;
-	
-	//@OneToMany(mappedBy = "user")
-	//private Dream dream;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
+
+	// @OneToMany(mappedBy = "user")
+	// private Dream dream;
 
 	public int getId() {
 		return id;
@@ -101,14 +105,6 @@ public class User {
 		this.birthday = birthday;
 	}
 
-	public String getZodiacSign() {
-		return zodiacSign;
-	}
-
-	public void setZodiacSign(String zodiacSign) {
-		this.zodiacSign = zodiacSign;
-	}
-
 	public String getAvatarURL() {
 		return avatarURL;
 	}
@@ -117,14 +113,7 @@ public class User {
 		this.avatarURL = avatarURL;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
+	
 //	public Dream getDream() {
 //		return dream;
 //	}
@@ -133,13 +122,48 @@ public class User {
 //		this.dream = dream;
 //	}
 
+	public ZodiacSign getZodiacSign() {
+		return zodiacSign;
+	}
+
+	public void setZodiacSign(ZodiacSign zodiacSign) {
+		this.zodiacSign = zodiacSign;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(avatarURL, birthday, email, firstName, id, lastName, password, role, username, zodiacSign);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(avatarURL, other.avatarURL) && Objects.equals(birthday, other.birthday)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName) && id == other.id
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
+				&& Objects.equals(role, other.role) && Objects.equals(username, other.username)
+				&& Objects.equals(zodiacSign, other.zodiacSign);
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", zodiacSign="
 				+ zodiacSign + ", avatarURL=" + avatarURL + ", role=" + role + "]";
 	}
-	
-	
-	
+
 }
