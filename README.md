@@ -12,8 +12,8 @@ Users can log in to their accounts, add new dream entries, view their existing d
 ## Login Credentials
 
 To log in to the application, please use the following credentials: <br>
-Username: [Your username] <br>
-Password: [Your password]
+Username: testuser <br>
+Password: testuser
 
 ## RESTful API Endpoints
 <center><span style="font-size: larger; font-weight: bold;">Dreams REST Endpoints</center>

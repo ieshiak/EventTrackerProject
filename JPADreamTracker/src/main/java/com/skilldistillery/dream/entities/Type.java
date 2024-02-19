@@ -1,6 +1,7 @@
 package com.skilldistillery.dream.entities;
 
 public enum Type {
+	Normal("Normal"),
     Lucid("Lucid"),
     Nightmare("Nightmare"),
     Day("Day"),
