@@ -44,7 +44,7 @@ Password: [Your password]
 | GET       | `/api/users/search/ieshiak`     |                                | Search of _users_ by username | 200, 404
 | GET       | `/api/users/count`     |                                | Count of all _users_   | 200 
 | GET       | `/api/users/1/avatarurl`     |                                | Display of _user_ avatarURL   | 200, 404 
-
+| GET       | `/api/users/1/dreams`     |                                | Display of _user_ dreams   | 200, 404 
 ## Technologies and Methodologies Used
 - Java
 - Spring Boot
