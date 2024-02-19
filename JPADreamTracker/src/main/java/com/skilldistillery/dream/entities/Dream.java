@@ -9,12 +9,22 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Dream {
 
 	public Dream() {
 
+	}
+	
+	public Dream(int id, String title, Emotion emotion, Type type, String description) {
+	    this.id = id;
+	    this.title = title;
+	    this.emotion = emotion;
+	    this.type = type;
+	    this.description = description;
 	}
 
 	@Id
@@ -35,9 +45,9 @@ public class Dream {
 	@Enumerated(EnumType.STRING)
 	private Emotion emotion;
 
-	// @ManyToOne
-	// @JoinColumn(name="user_id")
-	// private User user;
+	 @ManyToOne
+	 @JoinColumn(name="user_id")
+	 private User user;
 
 	public Integer getId() {
 		return id;
@@ -95,13 +105,13 @@ public class Dream {
 		this.emotion = emotion;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public int hashCode() {

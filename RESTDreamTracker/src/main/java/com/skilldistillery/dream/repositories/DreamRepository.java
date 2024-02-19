@@ -21,5 +21,8 @@ public interface DreamRepository extends JpaRepository<Dream, Integer> {
 	List<Dream> findByTitleIgnoreCaseContaining(String title);
 
 	long count();
+	
+	List<Dream> findByUserId(int userId);
+
 
 }

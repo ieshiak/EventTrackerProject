@@ -45,6 +45,6 @@ class DreamTest {
         assertNotNull(dream);
         assertEquals("Flying Dream", dream.getTitle());
         assertEquals(Emotion.Excitement, dream.getEmotion());
-        assertEquals(Type.LucidDream, dream.getType());
+        assertEquals(Type.Lucid, dream.getType());
     }
 }

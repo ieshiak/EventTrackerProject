@@ -26,4 +26,6 @@ public interface DreamService {
 
 	long countDreams();
 
+	List<Dream> findDreamsByUserId(int userId);
+
 }

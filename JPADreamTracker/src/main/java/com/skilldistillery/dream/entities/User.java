@@ -1,7 +1,10 @@
 package com.skilldistillery.dream.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -46,8 +50,9 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	// @OneToMany(mappedBy = "user")
-	// private Dream dream;
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Dream> dreams;
 
 	public int getId() {
 		return id;
@@ -113,14 +118,13 @@ public class User {
 		this.avatarURL = avatarURL;
 	}
 
-	
-//	public Dream getDream() {
-//		return dream;
-//	}
-//
-//	public void setDream(Dream dream) {
-//		this.dream = dream;
-//	}
+	public List<Dream> getDreams() {
+		return dreams;
+	}
+
+	public void setDreams(List<Dream> dreams) {
+		this.dreams = dreams;
+	}
 
 	public ZodiacSign getZodiacSign() {
 		return zodiacSign;

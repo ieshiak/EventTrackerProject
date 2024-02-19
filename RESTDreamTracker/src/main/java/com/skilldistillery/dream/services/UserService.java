@@ -26,6 +26,8 @@ public interface UserService {
 
 	long countUsers();
 
+	//String getAvatarUrl(int id);
+
 
 
 

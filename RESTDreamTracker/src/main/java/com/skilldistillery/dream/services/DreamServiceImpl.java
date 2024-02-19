@@ -72,5 +72,10 @@ public class DreamServiceImpl implements DreamService {
 	public long countDreams() {
 		return dreamRepo.count();
 	}
+	
+	@Override
+	public List<Dream> findDreamsByUserId(int userId) {
+	    return dreamRepo.findByUserId(userId);
+	}
 
 }

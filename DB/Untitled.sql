@@ -84,7 +84,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `dream`;
 INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `birthday`, `zodiac_sign`, `avatar_URL`, `role`) VALUES (1, 'ieshiak', 'esha', 'Ieshia', 'Parker', 'ieshiak@icloud.com', '1986-07-06', 'CANCER', 'images/IMG_STAR1.PNG', 'ADMIN');
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `birthday`, `zodiac_sign`, `avatar_URL`, `role`) VALUES (2, 'testuser', 'testuser', 'Test', 'User', 'testuser@example.com', '1966-02-28', 'PISCES', 'images/IMG_STAR2.PNG', 'USER');
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `birthday`, `zodiac_sign`, `avatar_URL`, `role`) VALUES (2, 'testuser', 'testuser', 'Test', 'User', 'testuser@example.com', '1966-02-28', 'PISECES', 'images/IMG_STAR2.PNG', 'USER');
 INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `birthday`, `zodiac_sign`, `avatar_URL`, `role`) VALUES (3, 'mikeevans', 'mike', 'Michael', 'Evans', 'mikemike@example.com', '1997-08-07', 'LEO', 'images/IMG_STAR3.PNG', 'MODERATOR');
 
 COMMIT;
@@ -95,8 +95,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dream`;
-INSERT INTO `dream` (`id`, `title`, `date`, `time`, `description`, `type`, `emotion`, `user_id`) VALUES (1, 'Flying Dream', '2024-02-16', '08:00', 'I was flying over a beautiful landscape', 'Lucid', 'Excitement', 1);
-INSERT INTO `dream` (`id`, `title`, `date`, `time`, `description`, `type`, `emotion`, `user_id`) VALUES (2, 'Forest Nightmare', '2024-02-15', '03:00', 'I was being chased by a monster through a dark forest', 'Nightmare', 'Fear', 2);
+INSERT INTO `dream` (`id`, `title`, `date`, `time`, `description`, `type`, `emotion`, `user_id`) VALUES (1, 'Flying Dream', '2024-02-16', '08:00', 'I was flying over a beautiful landscape', 'Lucid', 'Excitement', DEFAULT);
+INSERT INTO `dream` (`id`, `title`, `date`, `time`, `description`, `type`, `emotion`, `user_id`) VALUES (2, 'Forest Nightmare', '2024-02-15', '03:00', 'I was being chased by a monster through a dark forest', 'Nightmare', 'Fear', DEFAULT);
 
 COMMIT;
 

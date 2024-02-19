@@ -59,7 +59,7 @@ class DreamControllerTest {
 		Dream dream = new Dream();
 		dream.setTitle("My Dream Title");
 		dream.setDescription("My Dream Description");
-		dream.setType(Type.EpicDream);
+		dream.setType(Type.Epic);
 		dream.setEmotion(Emotion.Joy);
 
 		ObjectMapper objectMapper = new ObjectMapper();

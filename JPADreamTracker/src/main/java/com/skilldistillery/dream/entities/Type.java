@@ -1,27 +1,27 @@
 package com.skilldistillery.dream.entities;
 
 public enum Type {
-    LucidDream("Lucid Dream"),
+    Lucid("Lucid"),
     Nightmare("Nightmare"),
-    DayDream("Day Dream"),
-    EpicDream("Epic Dream"),
-    FalseAwakening("False Awakening"),
-    NightTerror("Night Terror"),
-    ProgressiveDream("Progressive Dream"),
-    PropheticDream("Prophetic Dream"),
-    RecurringDream("Recurring Dream"),
-    VividDream("Vivid Dream"),
-    SurrealDream("Surreal Dream"),
-    EmpoweringDream("Empowering Dream"),
-    InspirationalDream("Inspirational Dream"),
-    MysticalDream("Mystical Dream"),
-    TransformationalDream("Transformational Dream"),
-    EnlighteningDream("Enlightening Dream"),
-    SymbolicDream("Symbolic Dream"),
-    ChallengingDream("Challenging Dream"),
-    GuidingDream("Guiding Dream"),
-    CreativeDream("Creative Dream"),
-    HarmoniousDream("Harmonious Dream");
+    Day("Day"),
+    Epic("Epic"),
+    Awakening("Awakening"),
+    Terror("Terror"),
+    Progressive("Progressive"),
+    Prophetic("Prophetic"),
+    Recurring("Recurring"),
+    Vivid("Vivid"),
+    Surreal("Surreal"),
+    Empowering("Empowering"),
+    Inspirational("Inspirational"),
+    Mystical("Mystical"),
+    Transformational("Transformational"),
+    Enlightening("Enlightening"),
+    Symbolic("Symbolic"),
+    Challenging("Challenging"),
+    Guiding("Guiding"),
+    Creative("Creative"),
+    Harmonious("Harmonious");
 
     private final String label;
 

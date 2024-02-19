@@ -40,10 +40,10 @@ Password: [Your password]
 | PUT       | `/api/users/1`  | JSON of a new version of _user_ `1` | JSON of updated _user_  | 200, 404, 400      |
 | DELETE    | `/api/users/1`  |                                |                                | 204, 404, 400      |
 | GET       | `/api/users/search/zodiacsign/cancer`     |                                | List of all _users_ by zodiac sign   | 200, 404 
-| GET       | `/api/users/search/role/ADMIN`     |                                | List of all _users_ by role   | 200, 404 
+| GET       | `/api/users/search/role/admin`     |                                | List of all _users_ by role   | 200, 404 
 | GET       | `/api/users/search/ieshiak`     |                                | Search of _users_ by username | 200, 404
 | GET       | `/api/users/count`     |                                | Count of all _users_   | 200 
-
+| GET       | `/api/users/1/avatarurl`     |                                | Display of _user_ avatarURL   | 200, 404 
 
 ## Technologies and Methodologies Used
 - Java
@@ -57,6 +57,7 @@ Password: [Your password]
 
 ## Resources Used
 - Avatar Icons -
-<a href="https://www.freepik.com/free-vector/collection-emojis-flat-style_41630286.htm#query=emoji%20clipart&position=21&from_view=keyword&track=ais&uuid=04ec5ab0-f14f-408a-949e-7651d2101101">Image by Vectonauta</a>
+<a href="https://www.freepik.com/free-vector/collection-emoticon-icon-cute-star-cartoon-white_7038207.htm#query=emoji%20sprite%20dreams&position=6&from_view=search&track=ais&uuid=473c5722-e93a-4088-98c2-8367a9ecc21e">Freepik</a>
+
 - Rest Tutorials -
 <a href="https://spring.io/guides/tutorials/rest">Spring.io</a> 

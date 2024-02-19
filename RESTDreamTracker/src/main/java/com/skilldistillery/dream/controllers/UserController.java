@@ -76,8 +76,8 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("users/search/zodiacsign/{zodiacSign}")
-	public List<User> findUsersByZodiacSign(@PathVariable("zodiacSign") String zodiacSignString, HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("users/search/zodiacsign/{zodiacsign}")
+	public List<User> findUsersByZodiacSign(@PathVariable("zodiacsign") String zodiacSignString, HttpServletRequest request, HttpServletResponse response) {
 		ZodiacSign zodiacSign = ZodiacSign.fromString(zodiacSignString);
 		if (zodiacSign == null) {
 			response.setStatus(404);
@@ -108,5 +108,18 @@ public class UserController {
 	@GetMapping("users/count")
 	public long countUsers() {
 		return userService.countUsers();
+	}
+	
+	@GetMapping("users/{userId}/avatarurl")
+	public String getAvatarUrl(@PathVariable("userId") int userId, HttpServletRequest request, HttpServletResponse response) {
+	    User user = userService.findById(userId);
+	    if (user != null) {
+	        String avatarUrl = user.getAvatarURL();
+	        if (avatarUrl != null) {
+	            return avatarUrl;
+	        }
+	    }
+	    response.setStatus(404);
+	    return null;
 	}
 }
