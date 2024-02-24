@@ -1,5 +1,8 @@
 package com.skilldistillery.dream.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +11,17 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.dream.entities.Dream;
 import com.skilldistillery.dream.entities.Emotion;
 import com.skilldistillery.dream.entities.Type;
+import com.skilldistillery.dream.entities.User;
 import com.skilldistillery.dream.repositories.DreamRepository;
+import com.skilldistillery.dream.repositories.UserRepository;
 
 @Service
 public class DreamServiceImpl implements DreamService {
 	@Autowired
 	DreamRepository dreamRepo;
+	
+	@Autowired
+	UserRepository userRepo;
 
 	@Override
 	public List<Dream> index() {
@@ -32,15 +40,22 @@ public class DreamServiceImpl implements DreamService {
 
 	@Override
 	public Dream update(int id, Dream existingDream) {
-		Dream dream = findById(id);
-		dream.setTitle(existingDream.getTitle());
-		dream.setDate(existingDream.getDate());
-		dream.setTime(existingDream.getTime());
-		dream.setDescription(existingDream.getDescription());
-		dream.setEmotion(existingDream.getEmotion());
-		dream.setType(existingDream.getType());
-		return dreamRepo.save(dream);
+	    Dream dream = findById(id);
+	    User user = userRepo.findById(id);
+
+        dream.setUser(user);
+	    dream.setTitle(existingDream.getTitle());
+	    LocalDate date = existingDream.getDate();
+	    LocalTime time = existingDream.getTime();
+	    LocalDateTime dateTime = LocalDateTime.of(date, time);
+	    dream.setDateTime(dateTime);
+	    dream.setDescription(existingDream.getDescription());
+	    dream.setEmotion(existingDream.getEmotion());
+	    dream.setType(existingDream.getType());
+	    return dreamRepo.save(dream);
 	}
+
+
 
 	@Override
 	public boolean delete(int id) {

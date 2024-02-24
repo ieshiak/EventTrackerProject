@@ -41,7 +41,17 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(existingUser.getEmail());
 		user.setAvatarURL(existingUser.getAvatarURL());
 		user.setZodiacSign(existingUser.getZodiacSign());
-		user.setRole(existingUser.getRole());
+		switch (existingUser.getRole()) {
+        case ADMIN:
+            user.setAdmin(true);
+            break;
+        case MODERATOR:
+            user.setModerator(true);
+            break;
+        default:
+            user.setUser(true);
+            break;
+    }
 		return userRepo.save(user);
 	}
 
@@ -75,5 +85,29 @@ public class UserServiceImpl implements UserService {
 	public long countUsers() {
 		return userRepo.count();
 	}
+	
+	@Override
+	public User authenticateUser(String username, String password) {
+	    try {
+	        System.out.println("Entering authenticateUser method");
+	        System.out.println("Provided username: " + username);
 
+	        // Fetch user by username and password using UserRepository
+	        User user = userRepo.findByUsernameAndPassword(username, password);
+
+	        // If user is found and password matches, set admin role if applicable
+	        if (user != null) {
+	            if (user.getRole() == Role.ADMIN) {
+	                user.setAdmin(true);
+	            }
+	            System.out.println("Authenticated User: " + user);
+	        }
+	        return user;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
+	}
 }
+
+

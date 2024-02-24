@@ -26,6 +26,8 @@ public interface UserService {
 
 	long countUsers();
 
+	User authenticateUser(String username, String password);
+
 	//String getAvatarUrl(int id);
 
 

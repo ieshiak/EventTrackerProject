@@ -1,8 +1,11 @@
 package com.skilldistillery.dream.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,9 +36,8 @@ public class Dream {
 
 	private String title;
 
-	private LocalDateTime date;
-
-	private LocalDateTime time;
+	@Column(name = "date_time")
+	private LocalDateTime dateTime;
 
 	private String description;
 
@@ -64,22 +66,22 @@ public class Dream {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 
-	public LocalDateTime getDate() {
-		return date;
-	}
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
+    // Convenience methods to access date and time separately
+    public LocalDate getDate() {
+        return dateTime.toLocalDate(); // Extract date from LocalDateTime
+    }
 
-	public LocalDateTime getTime() {
-		return time;
-	}
-
-	public void setTime(LocalDateTime time) {
-		this.time = time;
-	}
+    public LocalTime getTime() {
+        return dateTime.toLocalTime(); // Extract time from LocalDateTime
+    }
 
 	public String getDescription() {
 		return description;
@@ -115,7 +117,7 @@ public class Dream {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, description, emotion, id, time, title, type);
+		return Objects.hash(dateTime, description, emotion, id, title, type, user);
 	}
 
 	@Override
@@ -127,14 +129,15 @@ public class Dream {
 		if (getClass() != obj.getClass())
 			return false;
 		Dream other = (Dream) obj;
-		return Objects.equals(date, other.date) && Objects.equals(description, other.description)
-				&& emotion == other.emotion && id == other.id && Objects.equals(time, other.time)
-				&& Objects.equals(title, other.title) && type == other.type;
+		return Objects.equals(dateTime, other.dateTime) && Objects.equals(description, other.description)
+				&& emotion == other.emotion && id == other.id && Objects.equals(title, other.title)
+				&& type == other.type && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Dream [id=" + id + ", title=" + title + ", date=" + date + ", time=" + time + ", description="
-				+ description + ", type=" + type + ", emotion=" + emotion + "]";
+		return "Dream [id=" + id + ", title=" + title + ", dateTime=" + dateTime + ", description=" + description
+				+ ", type=" + type + ", emotion=" + emotion + ", user=" + user + "]";
 	}
 }
+	

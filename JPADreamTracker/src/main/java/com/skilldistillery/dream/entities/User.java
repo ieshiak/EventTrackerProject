@@ -134,12 +134,26 @@ public class User {
 		this.zodiacSign = zodiacSign;
 	}
 
-	public Role getRole() {
-		return role;
+	public void setAdmin(boolean isAdmin) {
+	    if (isAdmin) {
+	        this.role = Role.ADMIN;
+	    }
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setModerator(boolean isModerator) {
+	    if (isModerator) {
+	        this.role = Role.MODERATOR;
+	    }
+	}
+
+	public void setUser(boolean isUser) {
+	    if (isUser) {
+	        this.role = Role.USER;
+	    }
+	}
+
+	public Role getRole() {
+	    return this.role;
 	}
 
 	@Override

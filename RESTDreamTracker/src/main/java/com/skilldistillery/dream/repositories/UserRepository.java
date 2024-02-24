@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	long count();
 
+	User findByUsernameAndPassword(String username, String password);
+
 }
