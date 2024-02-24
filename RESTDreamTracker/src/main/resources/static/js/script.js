@@ -5,6 +5,8 @@ console.log('script.js loaded')
 window.addEventListener('load', function(e) {
 	console.log('page loaded');
 	loadAllDreams();
+	populateTypeDropdown();
+    populateEmotionDropdown();
 
 	// Get a reference to the "Create" button
 	let createButton = document.getElementById('createButton');
@@ -470,4 +472,27 @@ if (editButton) {
     });
 } else {
     console.error('Error: "Edit" button not found.');
+}
+// Function to populate the type dropdown with enum values
+function populateTypeDropdown() {
+    let typeSelect = document.getElementById('editType');
+    let types = ["Normal", "Lucid", "Nightmare", "Day", "Epic", "Awakening", "Terror", "Progressive", "Prophetic", "Recurring", "Vivid", "Surreal", "Empowering", "Inspirational", "Mystical", "Transformational", "Enlightening", "Symbolic", "Challenging", "Guiding", "Creative", "Harmonious"];
+    types.forEach(function(type) {
+        let option = document.createElement('option');
+        option.textContent = type;
+        option.value = type;
+        typeSelect.appendChild(option);
+    });
+}
+
+// Function to populate the emotion dropdown with enum values
+function populateEmotionDropdown() {
+    let emotionSelect = document.getElementById('editEmotion');
+    let emotionValues = ["Joy", "Bliss", "Anger", "Fear", "Dread", "Wonder", "Intrigue", "Fascination", "Happiness", "Amazement", "Relaxation", "Disorientation", "Sadness", "Surprise", "Disgust", "Love", "Amusement", "Adventure", "Guilt", "Hope", "Inspired", "Interested", "Prideful", "Serenity", "Curious", "Hate", "Trust", "Excitement"];
+    emotionValues.forEach(function(emotion) {
+        let option = document.createElement('option');
+        option.textContent = emotion;
+        option.value = emotion;
+        emotionSelect.appendChild(option);
+    });
 }
