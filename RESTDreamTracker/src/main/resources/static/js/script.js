@@ -64,23 +64,6 @@ function displayDreamDetails(dream) {
 	let detailsBox = document.getElementById('dreamDetailsBox');
 	detailsBox.innerHTML = ''; // Clear existing content
 
-	let editButton = document.createElement('button');
-	editButton.textContent = 'Edit';
-	editButton.className = 'edit-button'; // Apply CSS class for styling
-	editButton.addEventListener('click', function() {
-		// Handle edit button click event
-		// Implement your edit functionality here
-	});
-	detailsBox.appendChild(editButton);
-
-	let deleteButton = document.createElement('button');
-	deleteButton.textContent = 'Delete';
-	deleteButton.className = 'delete-button'; // Apply CSS class for styling
-	deleteButton.addEventListener('click', function() {
-		// Handle delete button click event
-		// Implement your delete functionality here
-	});
-	detailsBox.appendChild(deleteButton);
 
 	// Add dream title to the details box
 	detailsBox.innerHTML += '<p>Title: ' + dream.title + '</p>';
@@ -153,6 +136,21 @@ function displayDreamDetails(dream) {
 		starIcon.style.left = '0';
 		li.insertBefore(starIcon, li.firstChild);
 	});
+	let editButton = document.createElement('button');
+	editButton.textContent = 'Edit';
+	editButton.addEventListener('click', function() {
+		editDream(dream.id); // Call editDream function with dream ID
+	});
+
+	let deleteButton = document.createElement('button');
+	deleteButton.textContent = 'Delete';
+	deleteButton.addEventListener('click', function() {
+		console.log('Delete button clicked');
+		deleteDream(dream.id); // Pass dream object to deleteDream function
+	});
+
+	detailsBox.appendChild(editButton);
+	detailsBox.appendChild(deleteButton);
 
 	// Display the details box
 	detailsBox.style.display = 'block';
@@ -314,4 +312,27 @@ function saveDream(newDream) {
 	xhr.setRequestHeader('Content-type', 'application/json'); // Set request header
 	let newDreamJson = JSON.stringify(newDream);
 	xhr.send(newDreamJson); // Send the JSON stringified newDream object to the server
+}
+
+// Function to handle dream deletion
+function deleteDream(dreamId) {
+	// Implement your delete functionality here
+	console.log('Deleting dream with ID:', dreamId);
+	// Example: Send a delete request to the server
+	fetch('api/dreams/' + dreamId, {
+		method: 'DELETE'
+	})
+		.then(response => {
+			if (response.ok) {
+				console.log('Dream deleted successfully');
+				// Optionally, update the UI or perform any additional tasks
+			} else {
+				console.error('Error deleting dream:', response.status);
+				// Optionally, display an error message or handle the error
+			}
+		})
+		.catch(error => {
+			console.error('Error deleting dream:', error);
+			// Optionally, display an error message or handle the error
+		});
 }
