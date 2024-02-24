@@ -76,11 +76,17 @@ public class Dream {
 
     // Convenience methods to access date and time separately
     public LocalDate getDate() {
-        return dateTime.toLocalDate(); // Extract date from LocalDateTime
+        if (dateTime != null) {
+            return dateTime.toLocalDate(); // Extract date from LocalDateTime
+        }
+        return null; // Handle null dateTime
     }
 
     public LocalTime getTime() {
-        return dateTime.toLocalTime(); // Extract time from LocalDateTime
+        if (dateTime != null) {
+            return dateTime.toLocalTime(); // Extract time from LocalDateTime
+        }
+        return null; // Handle null dateTime
     }
 
 	public String getDescription() {
