@@ -3,24 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Dream Tracker</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 
-<h1>Welcome to Dream Tracker</h1>
-<main>
-	<h3>Dream List</h3>
+	<h1>Welcome to Dream Tracker</h1>
+	<main>
+		<h3>Dream List</h3>
 
-    <div id="dreamListDiv"></div>
-    <div id="dreamDetailsBox" style="display: none;"></div>
-    
-    <button id="createButton">Create New Dream</button>
-    
-    <div id="addDreamDiv"></div>
-    <div id="editDreamDiv"></div>
-</main>
+		<div id="dreamListDiv"></div>
+		<div id="dreamDetailsBox" style="display: none;"></div>
 
-<script src="js/script.js"></script>
+		<button id="createButton">Create New Dream</button>
+
+
+		<form id="editDreamForm">
+			<label for="editTitle">Title:</label> <input type="text"
+				id="editTitle" name="editTitle"><br> <label
+				for="editDescription">Description:</label>
+			<textarea id="editDescription" name="editDescription"></textarea>
+			<br> <label for="editType">Type:</label> <select id="editType"
+				name="editType">
+				<!-- Options for different dream types -->
+			</select><br> <label for="editEmotion">Emotion:</label> <select
+				id="editEmotion" name="editEmotion">
+				<!-- Options for different emotions -->
+			</select><br> <label for="editDate">Date:</label> <input type="date"
+				id="editDate" name="editDate"><br> <label
+				for="editTime">Time:</label> <input type="time" id="editTime"
+				name="editTime"><br>
+
+			<button id="editSubmitButton">Submit</button>
+		</form>
+
+
+	</main>
+
+	<script src="js/script.js"></script>
 </body>
 </html>

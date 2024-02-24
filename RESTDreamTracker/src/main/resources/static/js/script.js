@@ -15,6 +15,16 @@ window.addEventListener('load', function(e) {
 	} else {
 		console.error('Error: "Create" button not found.');
 	}
+
+	// Get a reference to the "Edit" button
+	let editButton = document.getElementById('editButton');
+
+	if (editButton) {
+		editButton.addEventListener('click', function() {
+			console.log('Edit button clicked');
+			toggleEditForm(); // Toggle the display of the edit form
+		});
+	}
 });
 
 // Your other functions go here...
@@ -136,11 +146,18 @@ function displayDreamDetails(dream) {
 		starIcon.style.left = '0';
 		li.insertBefore(starIcon, li.firstChild);
 	});
+	// Create "Edit" button
 	let editButton = document.createElement('button');
 	editButton.textContent = 'Edit';
+
+	// Add event listener to "Edit" button
 	editButton.addEventListener('click', function() {
+		console.log('Edit button clicked');
 		editDream(dream.id); // Call editDream function with dream ID
 	});
+
+	// Append "Edit" button to detailsBox
+	detailsBox.appendChild(editButton);
 
 	let deleteButton = document.createElement('button');
 	deleteButton.textContent = 'Delete';
@@ -149,7 +166,6 @@ function displayDreamDetails(dream) {
 		deleteDream(dream.id); // Pass dream object to deleteDream function
 	});
 
-	detailsBox.appendChild(editButton);
 	detailsBox.appendChild(deleteButton);
 
 	// Display the details box
@@ -335,4 +351,123 @@ function deleteDream(dreamId) {
 			console.error('Error deleting dream:', error);
 			// Optionally, display an error message or handle the error
 		});
+}
+
+function editDream(dreamId) {
+	console.log('Editing dream with ID:', dreamId);
+
+	// Check if the editForm exists
+	let editForm = document.getElementById('editDreamForm');
+	console.log('Edit form:', editForm); // Log the editForm
+
+	// Make the edit form visible
+	if (editForm) {
+		editForm.style.display = 'block';
+		console.log('Edit form is set to display: block');
+	} else {
+		console.error('Edit form not found!');
+	}
+
+	// Populate the form fields with the existing dream details using the dreamId
+	// You may need to fetch the dream details from the server based on the dreamId
+
+	// Example: Fetch dream details from the server
+	fetch('api/dreams/' + dreamId)
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error('Failed to fetch dream details');
+			}
+		})
+		.then(dream => {
+			// Populate form fields with dream details
+			console.log('Dream details:', dream); // Log the dream details
+			document.getElementById('editTitle').value = dream.title;
+			document.getElementById('editDescription').value = dream.description;
+			document.getElementById('editType').value = dream.type;
+			document.getElementById('editEmotion').value = dream.emotion;
+			document.getElementById('editDate').value = dream.date;
+			document.getElementById('editTime').value = dream.time;
+		})
+		.catch(error => {
+			console.error('Error fetching dream details:', error);
+			// Optionally, display an error message or handle the error
+		});
+
+	// Assuming you have a submit button in the edit form
+	let submitButton = document.getElementById('editSubmitButton');
+	console.log('Submit button:', submitButton); // Log the submit button
+	submitButton.addEventListener('click', function() {
+		// Retrieve updated values from the form fields
+		let updatedTitle = document.getElementById('editTitle').value;
+		let updatedDescription = document.getElementById('editDescription').value;
+		let updatedType = document.getElementById('editType').value;
+		let updatedEmotion = document.getElementById('editEmotion').value;
+		let updatedDate = document.getElementById('editDate').value;
+		let updatedTime = document.getElementById('editTime').value;
+
+		// Construct the updated dream object
+		let updatedDream = {
+			id: dreamId, // Assuming you need the ID for updating on the server
+			title: updatedTitle,
+			description: updatedDescription,
+			type: updatedType,
+			emotion: updatedEmotion,
+			dateTime: updatedDate + 'T' + updatedTime, // Combine date and time
+			date: updatedDate, // Optionally, include separate date and time fields if needed
+			time: updatedTime
+		};
+
+		// Send the updated dream object to the server
+		saveEditedDream(updatedDream);
+	});
+}
+
+
+// Function to send the edited dream to the server
+function saveEditedDream(updatedDream) {
+	fetch('api/dreams/' + updatedDream.id, {
+		method: 'PUT', // Assuming you use PUT method for updating
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(updatedDream)
+	})
+		.then(response => {
+			if (response.ok) {
+				console.log('Dream updated successfully');
+				// Optionally, update the UI or perform any additional tasks
+			} else {
+				console.error('Error updating dream:', response.status);
+				// Optionally, display an error message or handle the error
+			}
+		})
+		.catch(error => {
+			console.error('Error updating dream:', error);
+			// Optionally, display an error message or handle the error
+		});
+}
+
+// Function to toggle the display of the edit form
+function toggleEditForm() {
+    let editForm = document.getElementById('editDreamForm');
+    if (editForm.style.display === 'none') {
+        editForm.style.display = 'block';
+    } else {
+        editForm.style.display = 'none';
+    }
+}
+
+// Get a reference to the "Edit" button
+let editButton = document.getElementById('editButton');
+
+// Check if the "Edit" button exists before adding the event listener
+if (editButton) {
+    editButton.addEventListener('click', function() {
+        console.log('Edit button clicked');
+        toggleEditForm(); // Toggle the display of the edit form
+    });
+} else {
+    console.error('Error: "Edit" button not found.');
 }

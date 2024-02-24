@@ -15,3 +15,8 @@
     padding: 10px;
     margin-top: 10px;
 }
+
+#editDreamForm {
+    display: none; /* Hide the edit form initially */
+}
+
