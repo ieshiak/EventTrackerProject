@@ -64,6 +64,24 @@ function displayDreamDetails(dream) {
 	let detailsBox = document.getElementById('dreamDetailsBox');
 	detailsBox.innerHTML = ''; // Clear existing content
 
+	let editButton = document.createElement('button');
+	editButton.textContent = 'Edit';
+	editButton.className = 'edit-button'; // Apply CSS class for styling
+	editButton.addEventListener('click', function() {
+		// Handle edit button click event
+		// Implement your edit functionality here
+	});
+	detailsBox.appendChild(editButton);
+
+	let deleteButton = document.createElement('button');
+	deleteButton.textContent = 'Delete';
+	deleteButton.className = 'delete-button'; // Apply CSS class for styling
+	deleteButton.addEventListener('click', function() {
+		// Handle delete button click event
+		// Implement your delete functionality here
+	});
+	detailsBox.appendChild(deleteButton);
+
 	// Add dream title to the details box
 	detailsBox.innerHTML += '<p>Title: ' + dream.title + '</p>';
 
