@@ -28,6 +28,7 @@ public class Dream {
 	    this.emotion = emotion;
 	    this.type = type;
 	    this.description = description;
+	    
 	}
 
 	@Id

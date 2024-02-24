@@ -248,22 +248,23 @@ function createNewDream() {
 			alert('Please fill in the title and description.');
 			return;
 		}
+		// Concatenate the date and time strings
 		let selectedDate = dateInput.value;
-    let selectedTime = timeInput.value;
+		let selectedTime = timeInput.value;
 
-    // Concatenate the date and time strings
-    let dateTimeString = selectedDate + ' ' + selectedTime;
+		// Concatenate the date and time strings with a space between them
+		let dateTimeString = selectedDate + 'T' + selectedTime;
 
-    let newDream = {
-        user: { id: userSelect.value }, // Set the user field with the selected user ID
-        title: titleInput.value,
-        description: descriptionInput.value,
-        type: typeSelect.value,
-        emotion: emotionSelect.value,
-        dateTime: dateTimeString, // Set the dateTime field with the concatenated date and time string
-        date: selectedDate, // Optionally, you can include the date and time separately if needed
-        time: selectedTime
-    };
+		let newDream = {
+			user: { id: userSelect.value }, // Set the user field with the selected user ID
+			title: titleInput.value,
+			description: descriptionInput.value,
+			type: typeSelect.value,
+			emotion: emotionSelect.value,
+			dateTime: dateTimeString, // Set the dateTime field with the concatenated date and time string
+			date: selectedDate, // Optionally, you can include the date and time separately if needed
+			time: selectedTime
+		};
 		saveDream(newDream);
 		// Display the details of the newly created dream
 		displayDreamDetails(newDream);
@@ -277,22 +278,22 @@ function createNewDream() {
 
 
 function saveDream(newDream) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'api/dreams');
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) { // Check if the response status is 201 (Created)
-                let createdDream = JSON.parse(xhr.responseText);
-                displayDreamDetails(createdDream); // Optionally, display the details of the newly created dream
-                console.log('Dream saved successfully:', createdDream);
-            } else {
-                displayError("Error creating new dream: " + xhr.status);
-            }
-        }
-    };
-    
-    xhr.setRequestHeader('Content-type', 'application/json'); // Set request header
-    let newDreamJson = JSON.stringify(newDream);
-    xhr.send(newDreamJson); // Send the JSON stringified newDream object to the server
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/dreams');
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) { // Check if the response status is 201 (Created)
+				let createdDream = JSON.parse(xhr.responseText);
+				displayDreamDetails(createdDream); // Optionally, display the details of the newly created dream
+				console.log('Dream saved successfully:', createdDream);
+			} else {
+				displayError("Error creating new dream: " + xhr.status);
+			}
+		}
+	};
+
+	xhr.setRequestHeader('Content-type', 'application/json'); // Set request header
+	let newDreamJson = JSON.stringify(newDream);
+	xhr.send(newDreamJson); // Send the JSON stringified newDream object to the server
 }
