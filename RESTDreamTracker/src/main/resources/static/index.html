@@ -11,18 +11,18 @@
 
 	<h1>Welcome to Dream Tracker</h1>
 	<main>
+		<button id="createButton">Create New Dream</button>
 		<h3>Dream List</h3>
 
 		<div id="dreamListDiv"></div>
 		<div id="dreamDetailsBox" style="display: none;"></div>
 
-		<button id="createButton">Create New Dream</button>
 
 
 		<form id="editDreamForm">
-			<label for="editTitle">Title:</label> <input type="text"
-				id="editTitle" name="editTitle"><br> <label
-				for="editDescription">Description:</label>
+			<input type="hidden" id="editUserId" name="editUserId"> <label
+				for="editTitle">Title:</label> <input type="text" id="editTitle"
+				name="editTitle"><br> <label for="editDescription">Description:</label>
 			<textarea id="editDescription" name="editDescription"></textarea>
 			<br> <label for="editType">Type:</label> <select id="editType"
 				name="editType">
@@ -33,11 +33,13 @@
 			</select><br> <label for="editDate">Date:</label> <input type="date"
 				id="editDate" name="editDate"><br> <label
 				for="editTime">Time:</label> <input type="time" id="editTime"
-				name="editTime"><br>
+				name="editTime"><br> <label for="editUser">User:</label>
+			<select id="editUser" name="editUser">
+				<!-- Options for different users -->
+			</select><br>
 
-			<button id="editSubmitButton">Submit</button>
+			<button type="button" id="editSubmitButton">Submit</button>
 		</form>
-
 
 	</main>
 
