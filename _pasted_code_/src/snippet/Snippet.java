@@ -12,9 +12,9 @@
         <div class="dream-list-container">
             <div id="dreamCount"></div>
             <h1>Welcome to Dream Tracker</h1>
-            <button id="createButton">Create New Dream</button>
             <h3>Dream List</h3>
             <div id="dreamListDiv"></div>
+            <button id="createButton">Create New Dream</button>
         </div>
         <div class="edit-create-container">
             <div id="dreamDetailsBox" style="display: none;"></div>

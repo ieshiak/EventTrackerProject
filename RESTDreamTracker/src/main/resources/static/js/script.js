@@ -302,8 +302,9 @@ function editDream(dreamId) {
     } else {
         console.error('Edit form not found!');
     }
+
     let dream;
-    let userSelect; // Declare userSelect variable here
+    let userSelect;
 
     fetch('api/dreams/' + dreamId)
         .then(response => {
@@ -322,15 +323,8 @@ function editDream(dreamId) {
             document.getElementById('editEmotion').value = dream.emotion;
             document.getElementById('editDate').value = dream.date;
             document.getElementById('editTime').value = dream.time;
-            
-            let userIdInput = document.createElement('input');
-            userIdInput.setAttribute('type', 'hidden');
-            userIdInput.setAttribute('id', 'editUserId');
-            userIdInput.setAttribute('name', 'editUserId');
-            userIdInput.value = dream.user ? dream.user.id : '';
-            document.getElementById('editDreamForm').appendChild(userIdInput);
 
-            return fetch('api/users'); // Return the promise chain
+            return fetch('api/users');
         })
         .then(response => {
             if (response.ok) {
@@ -340,7 +334,7 @@ function editDream(dreamId) {
             }
         })
         .then(users => {
-            userSelect = document.getElementById('editUser'); // Assign userSelect value here
+            userSelect = document.getElementById('editUser');
             userSelect.innerHTML = '';
             users.forEach(user => {
                 let option = document.createElement('option');
@@ -348,36 +342,43 @@ function editDream(dreamId) {
                 option.value = user.id;
                 userSelect.appendChild(option);
             });
-            
-            // Set the user ID after populating the user select element
-            document.getElementById('editUserId').value = dream.user ? dream.user.id : '';
+
+            let selectedUserId = dream.user ? dream.user.id : '';
+            userSelect.value = selectedUserId;
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
 
     let submitButton = document.getElementById('editSubmitButton');
-    console.log('Submit button:', submitButton);
-    submitButton.addEventListener('click', function() {
+    submitButton.addEventListener('click', function () {
         let updatedTitle = document.getElementById('editTitle').value;
         let updatedDescription = document.getElementById('editDescription').value;
         let updatedType = document.getElementById('editType').value;
         let updatedEmotion = document.getElementById('editEmotion').value;
         let updatedDate = document.getElementById('editDate').value;
         let updatedTime = document.getElementById('editTime').value;
-        let updatedUserId = document.getElementById('editUserId').value;
-        
+        let userSelect = document.getElementById('editUser');
+        let updatedUserId = userSelect.value;
+        // Check if the user_id is null
+        if (!updatedUserId) {
+            alert('Please select a user before updating the dream.');
+            return; // Prevent further execution of the update operation
+        }
+
         // Combine date and time into a single string
         let dateTimeString = updatedDate + 'T' + updatedTime;
 
         let updatedDream = {
             id: dreamId,
-            user: { id: userSelect.value },
+            user: {
+                id: updatedUserId
+            },
             title: updatedTitle,
             description: updatedDescription,
             type: updatedType,
             emotion: updatedEmotion,
-            dateTime: dateTimeString // Assign the combined dateTime string
+            dateTime: dateTimeString
         };
         saveEditedDream(updatedDream);
     });
@@ -385,6 +386,7 @@ function editDream(dreamId) {
 
 
 function saveEditedDream(updatedDream) {
+	console.log('Updated Dream:', updatedDream); // Log the updatedDream object
 	fetch('api/dreams/' + updatedDream.id, {
 		method: 'PUT',
 		headers: {
@@ -395,14 +397,19 @@ function saveEditedDream(updatedDream) {
 		.then(response => {
 			if (response.ok) {
 				console.log('Dream updated successfully');
+				return response.json(); // Assuming you want to do something with the updated dream data
 			} else {
 				console.error('Error updating dream:', response.status);
 			}
+		})
+		.then(updatedDreamData => {
+			// Do something with the updated dream data if needed
 		})
 		.catch(error => {
 			console.error('Error updating dream:', error);
 		});
 }
+
 function toggleEditForm() {
 	let editForm = document.getElementById('editDreamForm');
 	if (editForm.style.display === 'none') {
@@ -414,11 +421,7 @@ function toggleEditForm() {
 let editButton = document.getElementById('editButton');
 if (editButton) {
 	editButton.addEventListener('click', function() {
-		console.log('Edit button clicked');
-		toggleEditForm();
 	});
-} else {
-	console.error('Error: "Edit" button not found.');
 }
 
 function populateTypeDropdown() {
@@ -442,3 +445,4 @@ function populateEmotionDropdown() {
 		emotionSelect.appendChild(option);
 	});
 }
+

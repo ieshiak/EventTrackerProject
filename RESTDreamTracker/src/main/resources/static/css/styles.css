@@ -1,7 +1,5 @@
-
-
 #dreamList {
-    list-style-type: none; /* Remove default bullets */
+	list-style-type: none; /* Remove default bullets */
 }
 
 /* #dreamList li:before {
@@ -9,14 +7,95 @@
     font-family: "Font Awesome 5 Free"; Specify the FontAwesome font family
     margin-right: 5px; Adjust spacing between the star icon and the text
 } */
-
 #dreamDetailsBox {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 10px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin-top: 10px;
 }
 
 #editDreamForm {
-    display: none; /* Hide the edit form initially */
+	display: none; /* Hide the edit form initially */
 }
+
+body {
+	font-family: cursive;
+	color: #ffffff;
+	background-image: url('/images/GalaxyBackground.jpg'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+    
+    /* Specify background properties */
+    background-repeat: repeat; /* Prevent the background image from repeating */
+    background-position: center; /* Center the background image */
+}
+
+#dreamListDiv ul li:hover {
+    color: #ffe20a; /* Change to your desired text color on hover */
+}
+
+#dreamDetailsBox {
+    display: none;
+    border-radius: 8px; /* Rounded corners */
+    z-index: 9999; /* Ensure it's on top of other content */
+    color: #ffe20a; /* Text color */
+    font-size: 16px; /* Font size */
+}
+
+#dreamDetailsBox p {
+    margin-bottom: 10px; /* Add space between paragraphs */
+    font-weight: bold; /* Bold text */
+}
+
+#dreamDetailsBox ul {
+    margin-bottom: 10px; /* Add space below the list */
+}
+
+#editDreamForm {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#editDreamForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#editDreamForm input[type="text"],
+#editDreamForm textarea,
+#editDreamForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#editDreamForm button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#editDreamForm button:hover {
+    background-color: #ffe20a;
+}
+
+#createButton {
+    background-color: #ffffff;
+    color: ffe20a;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#createButton:hover {
+    background-color: #ffe20a;
+}
+
+
 
