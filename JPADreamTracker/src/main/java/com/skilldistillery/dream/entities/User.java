@@ -1,6 +1,6 @@
 package com.skilldistillery.dream.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,12 +8,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PostLoad;
 
 @Entity
 public class User {
@@ -38,17 +39,13 @@ public class User {
 
 	private String email;
 
-	private LocalDateTime birthday;
+	private LocalDate birthday;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "zodiac_sign")
-	private ZodiacSign zodiacSign;
+	private String role;
 
-	@Column(name = "avatar_URL")
-	private String avatarURL;
-
-	@Enumerated(EnumType.STRING)
-	private Role role;
+	@ManyToOne
+	@JoinColumn(name = "zodiac_id")
+	private Zodiac zodiac;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
@@ -102,20 +99,20 @@ public class User {
 		this.email = email;
 	}
 
-	public LocalDateTime getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(LocalDateTime birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
-	public String getAvatarURL() {
-		return avatarURL;
+	public Zodiac getZodiac() {
+		return zodiac;
 	}
 
-	public void setAvatarURL(String avatarURL) {
-		this.avatarURL = avatarURL;
+	public void setZodiac(Zodiac zodiac) {
+		this.zodiac = zodiac;
 	}
 
 	public List<Dream> getDreams() {
@@ -126,39 +123,17 @@ public class User {
 		this.dreams = dreams;
 	}
 
-	public ZodiacSign getZodiacSign() {
-		return zodiacSign;
+	public String getRole() {
+		return role;
 	}
 
-	public void setZodiacSign(ZodiacSign zodiacSign) {
-		this.zodiacSign = zodiacSign;
-	}
-
-	public void setAdmin(boolean isAdmin) {
-	    if (isAdmin) {
-	        this.role = Role.ADMIN;
-	    }
-	}
-
-	public void setModerator(boolean isModerator) {
-	    if (isModerator) {
-	        this.role = Role.MODERATOR;
-	    }
-	}
-
-	public void setUser(boolean isUser) {
-	    if (isUser) {
-	        this.role = Role.USER;
-	    }
-	}
-
-	public Role getRole() {
-	    return this.role;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(avatarURL, birthday, email, firstName, id, lastName, password, role, username, zodiacSign);
+		return Objects.hash(birthday, dreams, email, firstName, id, lastName, password, role, username, zodiac);
 	}
 
 	@Override
@@ -170,18 +145,57 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(avatarURL, other.avatarURL) && Objects.equals(birthday, other.birthday)
+		return Objects.equals(birthday, other.birthday) && Objects.equals(dreams, other.dreams)
 				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName) && id == other.id
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
 				&& Objects.equals(role, other.role) && Objects.equals(username, other.username)
-				&& Objects.equals(zodiacSign, other.zodiacSign);
+				&& Objects.equals(zodiac, other.zodiac);
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", zodiacSign="
-				+ zodiacSign + ", avatarURL=" + avatarURL + ", role=" + role + "]";
+				+ ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", role=" + role
+				+ ", zodiac=" + zodiac + ", dreams=" + dreams + "]";
+	}
+
+	private String determineZodiacSign(int month, int day) {
+		switch (month) {
+		case 1: // January
+			return (day <= 19) ? "Capricorn" : "Aquarius";
+		case 2: // February
+			return (day <= 18) ? "Aquarius" : "Pisces";
+		case 3: // March
+			return (day <= 20) ? "Pisces" : "Aries";
+		case 4: // April
+			return (day <= 19) ? "Aries" : "Taurus";
+		case 5: // May
+			return (day <= 20) ? "Taurus" : "Gemini";
+		case 6: // June
+			return (day <= 20) ? "Gemini" : "Cancer";
+		case 7: // July
+			return (day <= 22) ? "Cancer" : "Leo";
+		case 8: // August
+			return (day <= 22) ? "Leo" : "Virgo";
+		case 9: // September
+			return (day <= 22) ? "Virgo" : "Libra";
+		case 10: // October
+			return (day <= 22) ? "Libra" : "Scorpio";
+		case 11: // November
+			return (day <= 21) ? "Scorpio" : "Sagittarius";
+		case 12: // December
+			return (day <= 21) ? "Sagittarius" : "Capricorn";
+		default:
+			return "Unknown";
+		}
+	}
+
+	@PostLoad
+	public void assignZodiacSign() {
+		int month = birthday.getMonthValue();
+		int day = birthday.getDayOfMonth();
+		String zodiacSign = determineZodiacSign(month, day);
+		// zodiac = zodiacService.findZodiacBySign(zodiacSign);
 	}
 
 }

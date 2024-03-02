@@ -18,7 +18,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
-class UserTest {
+class ZodiacTest {
     private static EntityManagerFactory emf;
     private EntityManager em;
     
@@ -43,39 +43,21 @@ class UserTest {
     }
     
     @Test
-    void testUserMappings() {
-        String jpql = "SELECT u FROM User u";
-        TypedQuery<User> query = em.createQuery(jpql, User.class);
-        List<User> users = query.getResultList();
+    void testZodiacMappings() {
+        String jpql = "SELECT z FROM Zodiac z";
+        TypedQuery<Zodiac> query = em.createQuery(jpql, Zodiac.class);
+        List<Zodiac> zodiacs = query.getResultList();
         
-        assertNotNull(users);
-        assertEquals(3, users.size());
+        assertNotNull(zodiacs);
+        assertEquals(12, zodiacs.size()); // Assuming there are 12 zodiac signs
         
-        
-        for (User user : users) {
-            assertNotNull(user.getId());
-            assertNotNull(user.getUsername());
-            assertNotNull(user.getPassword());
-            assertNotNull(user.getFirstName());
-            assertNotNull(user.getLastName());
-            assertNotNull(user.getEmail());
-            assertNotNull(user.getBirthday());
-            assertNotNull(user.getRole());
-            assertNotNull(user.getDreams());
+        for (Zodiac zodiac : zodiacs) {
+            assertNotNull(zodiac.getId());
+            assertNotNull(zodiac.getZodiacSign());
+            assertNotNull(zodiac.getStartDate());
+            assertNotNull(zodiac.getEndDate());
+            assertNotNull(zodiac.getBackgroundImg());
+            assertNotNull(zodiac.getSleepPatternInfo());
         }
     }
-    
-    @Test
-    void testAssignZodiacSign_January19() {
-        User user = new User();
-        user.setBirthday(LocalDate.of(2000, Month.JANUARY, 19));
-        user.assignZodiacSign();
-        
-        user.setZodiac(new Zodiac());
-        user.getZodiac().setZodiacSign(ZodiacSign.Capricorn);
-
-        assertEquals(ZodiacSign.Capricorn, user.getZodiac().getZodiacSign());
-    }
-
-
 }

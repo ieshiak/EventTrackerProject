@@ -21,14 +21,14 @@ public class Dream {
 	public Dream() {
 
 	}
-	
+
 	public Dream(int id, String title, Emotion emotion, Type type, String description) {
-	    this.id = id;
-	    this.title = title;
-	    this.emotion = emotion;
-	    this.type = type;
-	    this.description = description;
-	    
+		this.id = id;
+		this.title = title;
+		this.emotion = emotion;
+		this.type = type;
+		this.description = description;
+
 	}
 
 	@Id
@@ -48,9 +48,13 @@ public class Dream {
 	@Enumerated(EnumType.STRING)
 	private Emotion emotion;
 
-	 @ManyToOne
-	 @JoinColumn(name="user_id")
-	 private User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "img_url")
+	private ImgUrl imgUrl;
 
 	public Integer getId() {
 		return id;
@@ -67,28 +71,29 @@ public class Dream {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public LocalDateTime getDateTime() {
-        return dateTime;
-    }
+		return dateTime;
+	}
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
 
-    // Convenience methods to access date and time separately
-    public LocalDate getDate() {
-        if (dateTime != null) {
-            return dateTime.toLocalDate(); // Extract date from LocalDateTime
-        }
-        return null; // Handle null dateTime
-    }
+	// Convenience methods to access date and time separately
+	public LocalDate getDate() {
+		if (dateTime != null) {
+			return dateTime.toLocalDate(); // Extract date from LocalDateTime
+		}
+		return null; // Handle null dateTime
+	}
 
-    public LocalTime getTime() {
-        if (dateTime != null) {
-            return dateTime.toLocalTime(); // Extract time from LocalDateTime
-        }
-        return null; // Handle null dateTime
-    }
+	public LocalTime getTime() {
+		if (dateTime != null) {
+			return dateTime.toLocalTime(); // Extract time from LocalDateTime
+		}
+		return null; // Handle null dateTime
+	}
 
 	public String getDescription() {
 		return description;
@@ -122,6 +127,14 @@ public class Dream {
 		this.user = user;
 	}
 
+	public ImgUrl getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(ImgUrl imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(dateTime, description, emotion, id, title, type, user);
@@ -147,4 +160,3 @@ public class Dream {
 				+ ", type=" + type + ", emotion=" + emotion + ", user=" + user + "]";
 	}
 }
-	

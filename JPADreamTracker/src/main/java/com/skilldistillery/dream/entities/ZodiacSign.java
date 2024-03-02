@@ -1,17 +1,18 @@
 package com.skilldistillery.dream.entities;
 public enum ZodiacSign {
-    ARIES("♈"),
-    TAURUS("♉"),
-    GEMINI("♊"),
-    CANCER("♋"),
-    LEO("♌"),
-    VIRGO("♍"),
-    LIBRA("♎"),
-    SCORPIO("♏"),
-    SAGITTARIUS("♐"),
-    CAPRICORN("♑"),
-    AQUARIUS("♒"),
-    PISCES("♓");
+	Aries("♈"),
+	Taurus("♉"),
+	Gemini("♊"),
+	Cancer("♋"),
+	Leo("♌"),
+	Virgo("♍"),
+	Libra("♎"),
+	Scorpio("♏"),
+	Sagittarius("♐"),
+	Capricorn("♑"),
+	Aquarius("♒"),
+	Pisces("♓");
+
 
     private final String symbol;
 

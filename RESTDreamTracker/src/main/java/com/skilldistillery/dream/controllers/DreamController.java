@@ -110,7 +110,7 @@ public class DreamController {
 		return dreamService.countDreams();
 	}
 	
-	@GetMapping("/users/{userid}/dreams")
+	@GetMapping("users/{userid}/dreams")
 	public List<Dream> getDreamsByUser(@PathVariable("userid") int userId, HttpServletRequest request, HttpServletResponse response) {
 		List<Dream> userDreams = dreamService.findDreamsByUserId(userId);
 		if (userDreams == null) {

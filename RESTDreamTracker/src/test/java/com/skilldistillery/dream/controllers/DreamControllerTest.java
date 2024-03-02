@@ -71,7 +71,7 @@ class DreamControllerTest {
 				.andExpect(status().isCreated()).andExpect(jsonPath("$.id").exists())
 				.andExpect(jsonPath("$.title").value("My Dream Title"))
 				.andExpect(jsonPath("$.description").value("My Dream Description"))
-				.andExpect(jsonPath("$.type").value("EpicDream")).andExpect(jsonPath("$.emotion").value("Joy"));
+				.andExpect(jsonPath("$.type").value("Epic")).andExpect(jsonPath("$.emotion").value("Joy"));
 
 		verify(dreamService, times(1)).create(any(Dream.class));
 	}
