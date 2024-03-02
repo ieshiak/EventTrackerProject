@@ -19,7 +19,7 @@ public class AuthServiceImpl implements AuthService {
 		String encrypted = encoder.encode(user.getPassword());
 		user.setPassword(encrypted);
 		user.setEnabled(true);
-		user.setRole("'standard");
+		user.setRole("user");
 		userRepo.saveAndFlush(user); // <==== Save to DB!
 		return user; // <==== Return user
 	}

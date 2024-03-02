@@ -42,6 +42,8 @@ public class User {
 	private LocalDate birthday;
 
 	private String role;
+	
+	private boolean enabled;
 
 	@ManyToOne
 	@JoinColumn(name = "zodiac_id")
@@ -196,6 +198,14 @@ public class User {
 		int day = birthday.getDayOfMonth();
 		String zodiacSign = determineZodiacSign(month, day);
 		// zodiac = zodiacService.findZodiacBySign(zodiacSign);
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }

@@ -2,9 +2,7 @@ package com.skilldistillery.dream.services;
 
 import java.util.List;
 
-import com.skilldistillery.dream.entities.Role;
 import com.skilldistillery.dream.entities.User;
-import com.skilldistillery.dream.entities.ZodiacSign;
 
 public interface UserService {
 
@@ -18,15 +16,15 @@ public interface UserService {
 
 	boolean delete(int id);
 
-	List<User> findByZodiacSign(ZodiacSign zodiacSign);
+	//List<User> findByZodiacSign(ZodiacSign zodiacSign);
 
-	List<User> findUsersByRole(Role role);
+	//List<User> findUsersByRole(Role role);
 
 	List<User> findUsersByUsername(String username);
 
 	long countUsers();
 
-	User authenticateUser(String username, String password);
+	//User authenticateUser(String username, String password);
 
 	//String getAvatarUrl(int id);
 
