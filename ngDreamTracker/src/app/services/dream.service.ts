@@ -20,4 +20,50 @@ export class DreamService {
       })
     );
   }
+
+  create(dream: Dream): Observable<Dream> {
+    return this.http.post<Dream>(this.url, dream).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'DreamService.create(): error creating Dream: ' + err )
+        );
+      })
+    );
+  }
+
+  destroy(id: number): Observable<void> {
+    const deleteUrl = `${this.url}/${id}`;
+    return this.http.delete<void>(deleteUrl).pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(
+           () => new Error( 'DreamService.create(): error creating Dream: ' + error )
+        );
+      })
+    );
+  }
+
+  update(dream: Dream): Observable<Dream> {
+    const updateUrl = `${this.url}/${dream.id}`;
+    return this.http.put<Dream>(updateUrl, dream).pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(
+           () => new Error( 'DreamService.update(): error updating Dream: ' + error )
+        );
+      })
+    );
+  }
+
+  show(id: number): Observable<Dream> {
+    return this.http.get<Dream>(`${this.url}/${id}`).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'DreamService.show(): error showing Dream: ' + err )
+        );
+      })
+    );
+  }
 }

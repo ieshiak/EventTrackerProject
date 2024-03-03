@@ -1,1 +1,105 @@
-<p>home works!</p>
+<h1>{{title}}</h1>
+<h3><span>{{getDreamCount()}} dreams created</span></h3>
+
+<div class="card-body">
+  <form name="createDreamForm" (submit)="addDream(newDream)">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" name="title" [(ngModel)]="newDream.title" id="title" placeholder="Enter title">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" name="description" [(ngModel)]="newDream.description" id="description" placeholder="Enter description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input type="date" class="form-control" name="date" [(ngModel)]="newDream.date" id="date">
+    </div>
+    <div class="form-group">
+      <label for="time">Time:</label>
+      <input type="time" class="form-control" name="time" [(ngModel)]="newDream.time" id="time">
+    </div>
+    <div class="form-group">
+      <label for="type">Type:</label>
+      <select class="form-control" name="type" [(ngModel)]="newDream.type" id="type">
+        <option *ngFor="let dreamType of dreamTypes" [value]="dreamType">{{ dreamType }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="emotion">Emotion:</label>
+      <select class="form-control" name="emotion" [(ngModel)]="newDream.emotion" id="emotion">
+        <option *ngFor="let dreamEmotion of dreamEmotions" [value]="dreamEmotion">{{ dreamEmotion }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="imgUrl">Image URL:</label>
+      <input type="text" class="form-control" name="imgUrl" [(ngModel)]="newDream.imgUrl" id="imgUrl" placeholder="Enter image URL">
+    </div>
+    <button type="submit" class="btn btn-primary">Create Dream</button>
+  </form>
+</div>
+
+
+<table class="table table-hover table-striped-columns">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Type</th>
+      <th>Emotion</th>
+      <th>Image</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dream of dreams">
+      <td>{{ dream.id }}</td>
+      <td>{{ dream.title }}</td>
+      <td>{{ dream.description }}</td>
+      <td>{{ dream.date }}</td>
+      <td>{{ dream.time }}</td>
+      <td>{{ dream.type }}</td>
+      <td>{{ dream.emotion }}</td>
+      <td><img [src]="dream.imgUrl" alt="Dream Image" width="50" height="50"></td>
+      <td><button class="btn btn-primary" (click)="updateDream(dream)">Update</button></td>
+      <td><button class="btn btn-danger" (click)="deleteDream(dream.id)">X</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="editDream">
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" name="title" [(ngModel)]="editDream.title" id="title" placeholder="Enter title">
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <input type="text" name="description" [(ngModel)]="editDream.description" id="description" placeholder="Enter description">
+  </div>
+  <div class="form-group">
+    <label for="date">Date:</label>
+    <input type="date" name="date" [(ngModel)]="editDream.date" id="date">
+  </div>
+  <div class="form-group">
+    <label for="time">Time:</label>
+    <input type="time" name="time" [(ngModel)]="editDream.time" id="time">
+  </div>
+  <div class="form-group">
+    <label for="type">Type:</label>
+    <input type="text" name="type" [(ngModel)]="editDream.type" id="type" placeholder="Enter type">
+  </div>
+  <div class="form-group">
+    <label for="emotion">Emotion:</label>
+    <input type="text" name="emotion" [(ngModel)]="editDream.emotion" id="emotion" placeholder="Enter emotion">
+  </div>
+  <div class="form-group">
+    <label for="imgUrl">Image URL:</label>
+    <input type="text" name="imgUrl" [(ngModel)]="editDream.imgUrl" id="imgUrl" placeholder="Enter image URL">
+  </div>
+  <button (click)="updateDream(editDream)">Save</button>
+  <button (click)="editDream = null">Cancel</button>
+</div>

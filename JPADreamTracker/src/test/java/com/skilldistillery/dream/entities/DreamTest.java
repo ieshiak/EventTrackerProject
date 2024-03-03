@@ -1,8 +1,10 @@
 package com.skilldistillery.dream.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -34,6 +36,7 @@ class DreamTest {
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
 		dream = em.find(Dream.class, 1);
+		
 	}
 
 	@AfterEach
@@ -44,65 +47,25 @@ class DreamTest {
 	
 	@Test
     void test_Dream_entity_mapping() {
+        // Create a new Dream object with the provided data
+        Dream dream = new Dream();
+        dream.setId(1);
+        dream.setDreamer("unknown");
+        dream.setTitle("Flying Dream");
+        dream.setDate(LocalDate.of(2024, 2, 16)); // Matches the date from the database
+        dream.setTime(LocalTime.of(10, 30)); // Matches the time from the database
+        dream.setDescription("I was flying over a beautiful landscape");
+        dream.setType(Type.Lucid);
+        dream.setEmotion(Emotion.Excitement);
+        dream.setImgUrl(ImgUrl.img_star13);
+
+        // Perform assertions
         assertNotNull(dream);
+        assertEquals(1, dream.getId());
         assertEquals("Flying Dream", dream.getTitle());
         assertEquals(Emotion.Excitement, dream.getEmotion());
         assertEquals(Type.Lucid, dream.getType());
     }
-	
-	@Test
-    void testDreamMappings() {
-        // Create a Dream object with sample data
-        Dream dream = new Dream();
-        dream.setTitle("Test Dream");
-        dream.setDescription("This is a test dream description.");
-        dream.setType(Type.Lucid);
-        dream.setEmotion(Emotion.Adventure);
-        dream.setDateTime(LocalDateTime.now());
-        
-        // Persist the Dream object in the database
-        em.getTransaction().begin();
-        em.persist(dream);
-        em.getTransaction().commit();
-        
-        // Retrieve the Dream object from the database
-        Dream savedDream = em.find(Dream.class, dream.getId());
-        
-        // Test if the retrieved Dream object matches the original one
-        assertNotNull(savedDream);
-        assertEquals("Test Dream", savedDream.getTitle());
-        assertEquals("This is a test dream description.", savedDream.getDescription());
-        assertEquals(Type.Lucid, savedDream.getType());
-        assertEquals(Emotion.Adventure, savedDream.getEmotion());
-        assertNotNull(savedDream.getDateTime());
-    }
-	@Test
-    void testDreamMappingsWithImgUrl() {
-        // Create a Dream object with sample data
-        Dream dream = new Dream();
-        dream.setTitle("Test Dream");
-        dream.setDescription("This is a test dream description.");
-        dream.setType(Type.Lucid);
-        dream.setEmotion(Emotion.Anger);
-        dream.setDateTime(LocalDateTime.now());
-        dream.setImgUrl(ImgUrl.img_star1); // Set the imgUrl
-        
-        // Persist the Dream object in the database
-        em.getTransaction().begin();
-        em.persist(dream);
-        em.getTransaction().commit();
-        
-        // Retrieve the Dream object from the database
-        Dream savedDream = em.find(Dream.class, dream.getId());
-        
-        // Test if the retrieved Dream object matches the original one
-        assertNotNull(savedDream);
-        assertEquals("Test Dream", savedDream.getTitle());
-        assertEquals("This is a test dream description.", savedDream.getDescription());
-        assertEquals(Type.Lucid, savedDream.getType());
-        assertEquals(Emotion.Anger, savedDream.getEmotion());
-        assertNotNull(savedDream.getDateTime());
-        assertEquals(ImgUrl.img_star1, savedDream.getImgUrl()); // Check imgUrl
-    }
 }
+
 

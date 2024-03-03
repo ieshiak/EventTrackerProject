@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Dream } from '../../models/dream';
+import { Dream, DreamEmotion, DreamType } from '../../models/dream';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DreamService } from '../../services/dream.service';
@@ -17,10 +17,16 @@ import { DreamService } from '../../services/dream.service';
 export class HomeComponent implements OnInit{
 
 dreams: Dream[] = [];
+dreamTypes = Object.values(DreamType);
+dreamEmotions = Object.values(DreamEmotion);
+editDream: Dream | null = null;
+newDream: Dream = new Dream();
+title:string = 'Dream Tracker';
+selected: Dream | null = null;
+updateSuccess: boolean = false;
 
 constructor(
-  private dreamService: DreamService
-){
+  private dreamService: DreamService){
 
 }
   ngOnInit(): void {
@@ -38,4 +44,56 @@ constructor(
       }
     );
   }
+
+  getDreamCount():number {
+    return this.dreams.length;
+  }
+
+  displayDream(dream: Dream):void {
+    this.selected = dream;
+  }
+
+  displayTable():void{
+    this.selected = null;
+  }
+
+  addDream(dream: Dream) {
+    this.dreamService.create(dream).subscribe(
+      () => {
+        this.loadDreams(); // Reload dreams after adding
+        this.newDream = new Dream(); // Reset newDream
+      },
+      (error) => {
+        console.error('HomeComponent.addDream: error', error);
+      }
+    );
+  }
+
+  setEditDream(){
+  this.editDream = Object.assign({}, this.selected)
+  }
+
+  updateDream(editDream: Dream) {
+    this.dreamService.update(editDream).subscribe(
+      () => {
+        this.loadDreams(); // Reload dreams after updating
+        this.editDream = null; // Reset editDream
+      },
+      (error) => {
+        console.error('HomeComponent.updateDream: error', error);
+      }
+    );
+  }
+
+  deleteDream(id: number) {
+    this.dreamService.destroy(id).subscribe(
+      () => {
+        this.loadDreams(); // Reload dreams after deleting
+      },
+      (error) => {
+        console.error('HomeComponent.deleteDream: error', error);
+      }
+    );
+  }
 }
+

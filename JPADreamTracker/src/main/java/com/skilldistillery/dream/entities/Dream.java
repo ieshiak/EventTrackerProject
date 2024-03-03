@@ -1,7 +1,6 @@
 package com.skilldistillery.dream.entities;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -12,8 +11,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Dream {
@@ -22,23 +19,17 @@ public class Dream {
 
 	}
 
-	public Dream(int id, String title, Emotion emotion, Type type, String description) {
-		this.id = id;
-		this.title = title;
-		this.emotion = emotion;
-		this.type = type;
-		this.description = description;
-
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	private String dreamer;
+	
 	private String title;
 
-	@Column(name = "date_time")
-	private LocalDateTime dateTime;
+	private LocalDate date;
+	
+	private LocalTime time;
 
 	private String description;
 
@@ -47,10 +38,6 @@ public class Dream {
 
 	@Enumerated(EnumType.STRING)
 	private Emotion emotion;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "img_url")
@@ -72,27 +59,28 @@ public class Dream {
 		this.title = title;
 	}
 
-	public LocalDateTime getDateTime() {
-		return dateTime;
+	public String getDreamer() {
+		return dreamer;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
+	public void setDreamer(String dreamer) {
+		this.dreamer = dreamer;
 	}
 
-	// Convenience methods to access date and time separately
 	public LocalDate getDate() {
-		if (dateTime != null) {
-			return dateTime.toLocalDate(); // Extract date from LocalDateTime
-		}
-		return null; // Handle null dateTime
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	public LocalTime getTime() {
-		if (dateTime != null) {
-			return dateTime.toLocalTime(); // Extract time from LocalDateTime
-		}
-		return null; // Handle null dateTime
+		return time;
+	}
+
+	public void setTime(LocalTime time) {
+		this.time = time;
 	}
 
 	public String getDescription() {
@@ -119,14 +107,6 @@ public class Dream {
 		this.emotion = emotion;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public ImgUrl getImgUrl() {
 		return imgUrl;
 	}
@@ -137,7 +117,7 @@ public class Dream {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateTime, description, emotion, id, title, type, user);
+		return Objects.hash(date, description, dreamer, emotion, id, imgUrl, time, title, type);
 	}
 
 	@Override
@@ -149,14 +129,17 @@ public class Dream {
 		if (getClass() != obj.getClass())
 			return false;
 		Dream other = (Dream) obj;
-		return Objects.equals(dateTime, other.dateTime) && Objects.equals(description, other.description)
-				&& emotion == other.emotion && id == other.id && Objects.equals(title, other.title)
-				&& type == other.type && Objects.equals(user, other.user);
+		return Objects.equals(date, other.date) && Objects.equals(description, other.description)
+				&& Objects.equals(dreamer, other.dreamer) && emotion == other.emotion && id == other.id
+				&& imgUrl == other.imgUrl && Objects.equals(time, other.time) && Objects.equals(title, other.title)
+				&& type == other.type;
 	}
 
 	@Override
 	public String toString() {
-		return "Dream [id=" + id + ", title=" + title + ", dateTime=" + dateTime + ", description=" + description
-				+ ", type=" + type + ", emotion=" + emotion + ", user=" + user + "]";
+		return "Dream [id=" + id + ", dreamer=" + dreamer + ", title=" + title + ", date=" + date + ", time=" + time
+				+ ", description=" + description + ", type=" + type + ", emotion=" + emotion + ", imgUrl=" + imgUrl
+				+ "]";
 	}
+
 }
