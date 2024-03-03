@@ -3,6 +3,7 @@ package com.skilldistillery.dream.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.skilldistillery.dream.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@CrossOrigin({"*", "http://localhost/"})
 @RequestMapping("api")
 @RestController
 public class UserController {
@@ -74,26 +76,6 @@ public class UserController {
 		}
 	}
 
-//	@GetMapping("users/search/zodiacsign/{zodiacsign}")
-//	public List<User> findUsersByZodiacSign(@PathVariable("zodiacsign") String zodiacSignString, HttpServletRequest request, HttpServletResponse response) {
-//		ZodiacSign zodiacSign = ZodiacSign.fromString(zodiacSignString);
-//		if (zodiacSign == null) {
-//			response.setStatus(404);
-//			throw new IllegalArgumentException("Invalid user zodiacSign: " + zodiacSignString);
-//		}
-//		return userService.findByZodiacSign(zodiacSign);
-//	}
-
-//	@GetMapping("users/search/role/{role}")
-//	public List<User> findUsersByRole(@PathVariable("role") String roleString, HttpServletRequest request, HttpServletResponse response) {
-//		Role role = Role.fromString(roleString);
-//		if (role == null) {
-//			response.setStatus(404);
-//			throw new IllegalArgumentException("Invalid user role: " + roleString);
-//		}
-//		return userService.findUsersByRole(role);
-//	}
-
 	@GetMapping("users/search/{username}")
 	public List<User> findByUsersUsername(@PathVariable("username") String username, HttpServletRequest request, HttpServletResponse response) {
 		List<User> users = userService.findUsersByUsername(username);
@@ -108,16 +90,4 @@ public class UserController {
 		return userService.countUsers();
 	}
 	
-//	@GetMapping("users/{userId}/avatarurl")
-//	public String getAvatarUrl(@PathVariable("userId") int userId, HttpServletRequest request, HttpServletResponse response) {
-//	    User user = userService.findById(userId);
-//	    if (user != null) {
-//	        String avatarUrl = user.getAvatarURL();
-//	        if (avatarUrl != null) {
-//	            return avatarUrl;
-//	        }
-//	    }
-//	    response.setStatus(404);
-//	    return null;
-//	}
 }
