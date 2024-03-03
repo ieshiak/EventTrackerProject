@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.dream.entities.Dream;
+import com.skilldistillery.dream.entities.Emotion;
 import com.skilldistillery.dream.repositories.DreamRepository;
 
 @Service
@@ -28,41 +29,37 @@ public class DreamServiceImpl implements DreamService {
 		return dreamRepo.save(newDream);
 	}
 
-//	@Override
-//	public Dream update(int id, Dream existingDream) {
-//	    Dream dream = findById(id);
-//	    User user = userRepo.findById(id);
-//
-//        dream.setUser(user);
-//	    dream.setTitle(existingDream.getTitle());
-//	    LocalDate date = existingDream.getDate();
-//	    LocalTime time = existingDream.getTime();
-//	    LocalDateTime dateTime = LocalDateTime.of(date, time);
-//	    dream.setDateTime(dateTime);
-//	    dream.setDescription(existingDream.getDescription());
-//	    dream.setEmotion(existingDream.getEmotion());
-//	    dream.setType(existingDream.getType());
-//	    return dreamRepo.save(dream);
-//	}
-//
-//
-//
-//	@Override
-//	public boolean delete(int id) {
-//		Dream dream = dreamRepo.findById(id);
-//		if (dream != null) {
-//			dreamRepo.delete(dream);
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-//
-//	@Override
-//	public List<Dream> findDreamsByEmotion(Emotion emotion) {
-//		return dreamRepo.findByEmotion(emotion);
-//	}
-//
+	@Override
+	public Dream update(int id, Dream existingDream) {
+	    Dream dream = findById(id);
+
+        dream.setDreamer(existingDream.getDreamer());
+	    dream.setTitle(existingDream.getTitle());
+	    dream.setDate(existingDream.getDate());
+	    dream.setTime(existingDream.getTime());
+	    dream.setDescription(existingDream.getDescription());
+	    dream.setEmotion(existingDream.getEmotion());
+	    dream.setType(existingDream.getType());
+	    dream.setImgUrl(existingDream.getImgUrl());
+	    return dreamRepo.save(dream);
+	}
+	
+	@Override
+	public boolean delete(int id) {
+		Dream dream = dreamRepo.findById(id);
+		if (dream != null) {
+			dreamRepo.delete(dream);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public List<Dream> findDreamsByEmotion(Emotion emotion) {
+		return dreamRepo.findByEmotion(emotion);
+	}
+
 //	@Override
 //	public List<Dream> findDreamsByType(Type type) {
 //		return dreamRepo.findByType(type);
