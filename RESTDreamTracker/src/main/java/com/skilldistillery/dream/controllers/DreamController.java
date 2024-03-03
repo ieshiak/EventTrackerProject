@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.dream.entities.Dream;
 import com.skilldistillery.dream.entities.Emotion;
+import com.skilldistillery.dream.entities.Type;
 import com.skilldistillery.dream.services.DreamService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -87,37 +88,37 @@ public class DreamController {
 		}
 		return dreamService.findDreamsByEmotion(emotion);
 	}
-//
-//	@GetMapping("dreams/search/type/{type}")
-//	public List<Dream> findDreamsByType(@PathVariable("type") String typeString, HttpServletRequest request, HttpServletResponse response) {
-//		Type type = Type.fromString(typeString);
-//		if (type == null) {
-//			response.setStatus(404);
-//			throw new IllegalArgumentException("Invalid dream type: " + typeString);
-//		}
-//		return dreamService.findDreamsByType(type);
-//	}
 
-//	@GetMapping("dreams/search/{title}")
-//	public List<Dream> findByDreamsTitle(@PathVariable("title") String title, HttpServletRequest request, HttpServletResponse response) {
-//		List<Dream> dreams = dreamService.findDreamsByTitle(title);
-//		if (dreams == null) {
-//			response.setStatus(404);
-//		}
-//		return dreams;
-//	}
-//
-//	@GetMapping("dreams/count")
-//	public long countDreams() {
-//		return dreamService.countDreams();
-//	}
-//	
-//	@GetMapping("users/{userid}/dreams")
-//	public List<Dream> getDreamsByUser(@PathVariable("userid") int userId, HttpServletRequest request, HttpServletResponse response) {
-//		List<Dream> userDreams = dreamService.findDreamsByUserId(userId);
-//		if (userDreams == null) {
-//			response.setStatus(404);
-//		}
-//		return userDreams;
-//	}
+	@GetMapping("dreams/search/type/{type}")
+	public List<Dream> findDreamsByType(@PathVariable("type") String typeString, HttpServletRequest request, HttpServletResponse response) {
+		Type type = Type.fromString(typeString);
+		if (type == null) {
+			response.setStatus(404);
+			throw new IllegalArgumentException("Invalid dream type: " + typeString);
+		}
+		return dreamService.findDreamsByType(type);
+	}
+
+	@GetMapping("dreams/search/title/{title}")
+	public List<Dream> findByDreamsTitle(@PathVariable("title") String title, HttpServletRequest request, HttpServletResponse response) {
+		List<Dream> dreams = dreamService.findDreamsByTitle(title);
+		if (dreams == null) {
+			response.setStatus(404);
+		}
+		return dreams;
+	}
+	
+	@GetMapping("dreams/search/dreamer/{dreamer}")
+	public List<Dream> findByDreamer(@PathVariable("dreamer") String dreamer, HttpServletRequest request, HttpServletResponse response) {
+		List<Dream> dreams = dreamService.findDreamsByDreamer(dreamer);
+		if (dreams == null) {
+			response.setStatus(404);
+		}
+		return dreams;
+	}
+
+	@GetMapping("dreams/count")
+	public long countDreams() {
+		return dreamService.countDreams();
+	}
 }

@@ -27,7 +27,6 @@ public enum Emotion {
     Curious,
     Hate,
     Trust,
-    Lucid,
     Excitement;
     
     public static Emotion fromString(String text) {

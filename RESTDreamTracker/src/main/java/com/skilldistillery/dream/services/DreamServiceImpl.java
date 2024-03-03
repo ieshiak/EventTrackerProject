@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.dream.entities.Dream;
 import com.skilldistillery.dream.entities.Emotion;
+import com.skilldistillery.dream.entities.Type;
 import com.skilldistillery.dream.repositories.DreamRepository;
 
 @Service
@@ -60,24 +61,24 @@ public class DreamServiceImpl implements DreamService {
 		return dreamRepo.findByEmotion(emotion);
 	}
 
-//	@Override
-//	public List<Dream> findDreamsByType(Type type) {
-//		return dreamRepo.findByType(type);
-//	}
-//
-//	@Override
-//	public List<Dream> findDreamsByTitle(String title) {
-//		return dreamRepo.findByTitleIgnoreCaseContaining(title);
-//	}
-//
-//	@Override
-//	public long countDreams() {
-//		return dreamRepo.count();
-//	}
-//	
-//	@Override
-//	public List<Dream> findDreamsByUserId(int userId) {
-//	    return dreamRepo.findByUserId(userId);
-//	}
-//
+	@Override
+	public List<Dream> findDreamsByType(Type type) {
+		return dreamRepo.findByType(type);
+	}
+
+	@Override
+	public List<Dream> findDreamsByTitle(String title) {
+		return dreamRepo.findByTitleIgnoreCaseContaining(title);
+	}
+	
+	@Override
+	public List<Dream> findDreamsByDreamer(String dreamer) {
+		return dreamRepo.findByDreamer(dreamer);
+	}
+
+	@Override
+	public long countDreams() {
+		return dreamRepo.count();
+	}
+
 }
