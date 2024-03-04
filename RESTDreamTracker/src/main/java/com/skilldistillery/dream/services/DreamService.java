@@ -3,8 +3,6 @@ package com.skilldistillery.dream.services;
 import java.util.List;
 
 import com.skilldistillery.dream.entities.Dream;
-import com.skilldistillery.dream.entities.Emotion;
-import com.skilldistillery.dream.entities.Type;
 
 public interface DreamService {
 
@@ -18,14 +16,15 @@ public interface DreamService {
 
 	boolean delete(int id);
 
-	List<Dream> findDreamsByEmotion(Emotion emotion);
+	List<Dream> findDreamsByEmotion(String emotion);
 
-	List<Dream> findDreamsByType(Type type);
+	List<Dream> findDreamsByType(String type);
 
 	List<Dream> findDreamsByTitle(String title);
 	
 	List<Dream> findDreamsByDreamer(String dreamer);
 
 	long countDreams();
+
 
 }

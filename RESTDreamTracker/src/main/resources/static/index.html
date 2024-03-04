@@ -15,29 +15,40 @@
             <h3>Dream List</h3>
             <div id="dreamListDiv"></div>
             
-        <div class="edit-create-container">
-            <div id="dreamDetailsBox" style="display: none;"></div>
-            <form id="editDreamForm" style="display: none;">
-                <input type="hidden" id="editUserId" name="editUserId"> <label
-                    for="editTitle">Title:</label> <input type="text" id="editTitle"
-                    name="editTitle"><br> <label for="editDescription">Description:</label>
-                <textarea id="editDescription" name="editDescription"></textarea>
-                <br> <label for="editType">Type:</label> <select id="editType"
-                    name="editType">
-                    <!-- Options for different dream types -->
-                </select><br> <label for="editEmotion">Emotion:</label> <select
-                    id="editEmotion" name="editEmotion">
-                    <!-- Options for different emotions -->
-                </select><br> <label for="editDate">Date:</label> <input type="date"
-                    id="editDate" name="editDate"><br> <label
-                    for="editTime">Time:</label> <input type="time" id="editTime"
-                    name="editTime"><br> <label for="editUser">User:</label>
-                <select id="editUser" name="editUser">
-                    <!-- Options for different users -->
-                </select><br>
-                <button type="button" id="editSubmitButton">Submit</button>
-            </form>
-        </div>
+       <div class="edit-create-container">
+    <div id="dreamDetailsBox" style="display: none;"></div>
+    <form id="editDreamForm" style="display: none;">
+        <input type="hidden" id="editUserId" name="editUserId">
+        
+        <label for="editTitle">Title:</label>
+        <input type="text" id="editTitle" name="editTitle"><br>
+        
+        <label for="editDreamer">Dreamer:</label>
+        <input type="text" id="editDreamer" name="editDreamer"><br>
+       
+        <label for="editDescription">Description:</label>
+        <textarea id="editDescription" name="editDescription"></textarea><br>
+        
+        <label for="editType">Type:</label>
+        <select id="editType" name="editType">
+            <!-- Options for different dream types -->
+        </select><br>
+        <label for="editEmotion">Emotion:</label>
+        <select id="editEmotion" name="editEmotion">
+            <!-- Options for different emotions -->
+        </select><br>
+        <label for="editDate">Date:</label>
+        <input type="date" id="editDate" name="editDate"><br>
+        
+        <label for="editTime">Time:</label>
+        <input type="time" id="editTime" name="editTime"><br>
+       
+        <label for="editPhoto">Image URL:</label>
+        <input type="text" id="editPhoto" name="editPhoto"><br>
+        <button type="button" id="editSubmitButton">Submit</button>
+    </form>
+</div>
+
     </div>
     <script>
     function fetchDreamCount() {

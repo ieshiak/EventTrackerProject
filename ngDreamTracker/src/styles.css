@@ -1,1 +1,63 @@
-/* You can add global styles to this file, and also import other style files */
+.image-row {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.image-thumbnail {
+  display: inline-block;
+  margin-right: 10px; /* Adjust margin as needed */
+}
+
+.selected-image {
+  margin-top: 10px; /* Add space between image row and save button */
+}
+/* Add this to your CSS file */
+.thumbnail-image {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.selected-image.highlight {
+  border: 2px solid blue; /* Example styling for highlighting */
+  /* Add any other styles you want for highlighting */
+}
+.dream-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.dream-table th, .dream-table td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.dream-table th {
+  background-color: #f2f2f2;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+.dream-table input {
+  width: 100%;
+}
+.dream-table tbody tr td {
+  height: 50px; /* Set a fixed height for the table cells */
+}
+
+input[type="text"] {
+  white-space: normal;
+}

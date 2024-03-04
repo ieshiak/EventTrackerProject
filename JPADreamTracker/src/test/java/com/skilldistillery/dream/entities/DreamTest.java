@@ -55,9 +55,7 @@ class DreamTest {
         dream.setDate(LocalDate.of(2024, 2, 16)); // Matches the date from the database
         dream.setTime(LocalTime.of(10, 30)); // Matches the time from the database
         dream.setDescription("I was flying over a beautiful landscape");
-        dream.setType(Type.Lucid);
-        dream.setEmotion(Emotion.Excitement);
-        dream.setImgUrl(ImgUrl.img_star13);
+       
 
         // Perform assertions
         assertNotNull(dream);

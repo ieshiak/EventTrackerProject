@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { Dream } from '../models/dream';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Dream } from '../models/dream';
 })
 export class DreamService {
   private url = environment.baseUrl + 'api/dreams';
+
 
   constructor(private http: HttpClient) { }
 

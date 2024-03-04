@@ -24,24 +24,21 @@ public class Dream {
 	private int id;
 
 	private String dreamer;
-	
+
 	private String title;
 
 	private LocalDate date;
-	
+
 	private LocalTime time;
 
 	private String description;
 
-	@Enumerated(EnumType.STRING)
-	private Type type;
+	private String type;
 
-	@Enumerated(EnumType.STRING)
-	private Emotion emotion;
+	private String emotion;
 
-	@Enumerated(EnumType.STRING)
 	@Column(name = "img_url")
-	private ImgUrl imgUrl;
+	private String imgUrl;
 
 	public Integer getId() {
 		return id;
@@ -91,27 +88,27 @@ public class Dream {
 		this.description = description;
 	}
 
-	public Type getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
-	public Emotion getEmotion() {
+	public String getEmotion() {
 		return emotion;
 	}
 
-	public void setEmotion(Emotion emotion) {
+	public void setEmotion(String emotion) {
 		this.emotion = emotion;
 	}
 
-	public ImgUrl getImgUrl() {
+	public String getImgUrl() {
 		return imgUrl;
 	}
 
-	public void setImgUrl(ImgUrl imgUrl) {
+	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
 

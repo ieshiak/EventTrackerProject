@@ -57,12 +57,12 @@ public class DreamServiceImpl implements DreamService {
 	}
 
 	@Override
-	public List<Dream> findDreamsByEmotion(Emotion emotion) {
+	public List<Dream> findDreamsByEmotion(String emotion) {
 		return dreamRepo.findByEmotion(emotion);
 	}
 
 	@Override
-	public List<Dream> findDreamsByType(Type type) {
+	public List<Dream> findDreamsByType(String type) {
 		return dreamRepo.findByType(type);
 	}
 
@@ -81,4 +81,6 @@ public class DreamServiceImpl implements DreamService {
 		return dreamRepo.count();
 	}
 
+
 }
+

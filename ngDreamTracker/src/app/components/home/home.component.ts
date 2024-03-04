@@ -1,8 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Dream, DreamEmotion, DreamType } from '../../models/dream';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { Dream, DreamEmotion, DreamType, ImgUrl } from '../../models/dream';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DreamService } from '../../services/dream.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AppComponent } from '../../app.component';
+
+@NgModule({
+  declarations: [
+    // Your components
+  ],
+  imports: [
+    // Other imported modules
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 
 @Component({
   selector: 'app-home',
@@ -15,6 +30,9 @@ import { DreamService } from '../../services/dream.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
+toggleEditForm() {
+throw new Error('Method not implemented.');
+}
 
 dreams: Dream[] = [];
 dreamTypes = Object.values(DreamType);
@@ -24,10 +42,12 @@ newDream: Dream = new Dream();
 title:string = 'Dream Tracker';
 selected: Dream | null = null;
 updateSuccess: boolean = false;
+showEditFormFlag: boolean = false;
+displayEditForm: boolean = false;
 
 constructor(
   private dreamService: DreamService){
-
+ this.displayEditForm = false;
 }
   ngOnInit(): void {
     this.loadDreams();
@@ -38,12 +58,15 @@ constructor(
       (dreamList) => {
         this.dreams = dreamList;
         console.log(this.dreams);
+        this.dreams.forEach(dream => {
+        });
       },
       (err) => {
         console.error('DreamListComponent.loadDreams: error', err);
       }
     );
   }
+
 
   getDreamCount():number {
     return this.dreams.length;
@@ -96,4 +119,3 @@ constructor(
     );
   }
 }
-

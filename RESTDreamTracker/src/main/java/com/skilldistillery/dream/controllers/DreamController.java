@@ -1,10 +1,10 @@
 package com.skilldistillery.dream.controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -89,25 +89,32 @@ public class DreamController {
 			e.printStackTrace();
 		}
 	}
+	
+	@GetMapping("dreams/emotions")
+	public List<String> getEmotionOptions() {
+	    List<String> emotionOptions = Arrays.stream(Emotion.values())
+	                                        .map(Enum::toString)
+	                                        .collect(Collectors.toList());
+	    return emotionOptions;
+	}
 
 	@GetMapping("dreams/search/emotion/{emotion}")
 	public List<Dream> findDreamsByEmotion(@PathVariable("emotion") String emotionString, HttpServletRequest request, HttpServletResponse response) {
-		Emotion emotion = Emotion.fromString(emotionString);
-		if (emotion == null) {
-			response.setStatus(404);
-			throw new IllegalArgumentException("Invalid dream emotion: " + emotionString);
-		}
-		return dreamService.findDreamsByEmotion(emotion);
+	    return dreamService.findDreamsByEmotion(emotionString);
+	}
+	
+	@GetMapping("dreams/types")
+	public List<String> getTypeOptions() {
+	    List<String> typeOptions = Arrays.stream(Type.values())
+	                                     .map(Enum::toString)
+	                                     .collect(Collectors.toList());
+	    return typeOptions;
 	}
 
 	@GetMapping("dreams/search/type/{type}")
 	public List<Dream> findDreamsByType(@PathVariable("type") String typeString, HttpServletRequest request, HttpServletResponse response) {
-		Type type = Type.fromString(typeString);
-		if (type == null) {
-			response.setStatus(404);
-			throw new IllegalArgumentException("Invalid dream type: " + typeString);
-		}
-		return dreamService.findDreamsByType(type);
+	    // No need for conversion, directly use the type string
+	    return dreamService.findDreamsByType(typeString);
 	}
 
 	@GetMapping("dreams/search/title/{title}")
@@ -133,6 +140,15 @@ public class DreamController {
 		return dreamService.countDreams();
 	}
 	
+	@GetMapping("images")
+    public ResponseEntity<List<String>> getImageEnums() {
+        List<String> enumValues = Arrays.stream(ImgUrl.values())
+                                        .map(Enum::name)
+                                        .collect(Collectors.toList());
+        return ResponseEntity.ok().body(enumValues);
+    }
+
+	
 	@GetMapping("images/{imageName}")
 	public ResponseEntity<byte[]> getImage(@PathVariable("imageName") String imageName) {
 	    try {
@@ -157,5 +173,7 @@ public class DreamController {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+
+
 
 }
