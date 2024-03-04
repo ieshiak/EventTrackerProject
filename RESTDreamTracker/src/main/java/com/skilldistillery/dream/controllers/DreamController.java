@@ -1,8 +1,18 @@
 package com.skilldistillery.dream.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.dream.entities.Dream;
 import com.skilldistillery.dream.entities.Emotion;
+import com.skilldistillery.dream.entities.ImgUrl;
 import com.skilldistillery.dream.entities.Type;
 import com.skilldistillery.dream.services.DreamService;
 
@@ -121,4 +132,30 @@ public class DreamController {
 	public long countDreams() {
 		return dreamService.countDreams();
 	}
+	
+	@GetMapping("images/{imageName}")
+	public ResponseEntity<byte[]> getImage(@PathVariable("imageName") String imageName) {
+	    try {
+	        // Resolve enum value from imageName
+	        ImgUrl imgUrl = ImgUrl.valueOf(imageName);
+
+	        // Load the image from the resources directory
+	        Resource resource = new ClassPathResource("static/images/" + imgUrl.getUrl());
+
+	        // Read the image bytes
+	        byte[] imageBytes = Files.readAllBytes(resource.getFile().toPath());
+
+	        // Set the response headers
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.IMAGE_PNG); // or MediaType.IMAGE_JPEG if needed
+
+	        // Return the image bytes in the response
+	        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+	    } catch (IOException | IllegalArgumentException e) {
+	        // Handle file reading errors or invalid enum values
+	        e.printStackTrace();
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+
 }
